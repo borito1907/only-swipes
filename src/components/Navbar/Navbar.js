@@ -1,6 +1,35 @@
 import React from 'react';
-import {MenuItems} from './MenuItems';
+// import {MenuItems} from './MenuItems';
 import './Navbar.css';
+
+// TO-DO: Put this in MenuItems.js
+const MenuItems = [
+    {
+        title: "Home",
+        url: "",
+        cName: "nav-links"
+    },
+    {
+        title: "Title 2",
+        url: "",
+        cName: "nav-links"
+    },
+    {
+        title: "Title 3",
+        url: "",
+        cName: "nav-links"
+    },
+    {
+        title: "Title 4",
+        url: "",
+        cName: "nav-links"
+    },
+    {
+        title: "Title 5",
+        url: "",
+        cName: "nav-links"
+    }
+]
 
 class Navbar extends React.Component {
     render(){
