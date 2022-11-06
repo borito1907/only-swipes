@@ -16,4 +16,5 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+// Firebase SDK uses this to connect to your backend
 const firebaseApp = initializeApp(firebaseConfig);
