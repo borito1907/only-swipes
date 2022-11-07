@@ -1,14 +1,25 @@
+import { Routes, Route } from 'react-router-dom';
+
 import './App.css';
 import React from "react";
 import Navbar from './components/Navbar/Navbar';
-// use later for navigation
-import {BrowserRouter as Router} from "react-router-dom";
+
+import HomePage from './pages/Home';
+import ChatRoomsPage from './pages/ChatRooms';
+import ProfilePage from './pages/Profile';
+import SignInPage from './pages/SignIn';
 
 class App extends React.Component{
   render(){
     return (
       <div className="App">
         <div><Navbar /></div>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/chatrooms" element={<ChatRoomsPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/signin" element={<SignInPage />} />
+        </Routes>
       </div>
     );
   }  
