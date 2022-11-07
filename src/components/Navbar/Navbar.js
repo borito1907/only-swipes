@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../Button';
 // import {MenuItems} from './MenuItems';
 import './Navbar.css';
 
@@ -10,38 +11,37 @@ const MenuItems = [
         cName: "nav-links"
     },
     {
-        title: "Title 2",
+        title: "Settings",
         url: "",
         cName: "nav-links"
     },
-    {
-        title: "Title 3",
-        url: "",
-        cName: "nav-links"
-    },
-    {
-        title: "Title 4",
-        url: "",
-        cName: "nav-links"
-    },
-    {
-        title: "Title 5",
-        url: "",
-        cName: "nav-links"
-    }
 ]
 
 class Navbar extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+          clicked: false,
+        };
+    }
+
+    handleClick = () => {
+        this.setState({
+            clicked: !this.state.clicked
+        })
+    }
+    
     render(){
         return(
             <nav className='NavbarItems'>
-                
-                {/* <h1 className='navbar-logo'>React</h1> import React logo*/}
+                {/* TODO: Change this logo or remove it */}
+                <h1 className='navbar-logo'>OnlySwipes<i className='fab fa-react'></i></h1>
 
-                <div className='menu-icon'>
-                     
+                {/* TODO: Add font awesome */}
+                <div className='menu-icon' onClick={this.handleClick}>
+                     <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
                 </div>
-                <ul>
+                <ul className={this.state.clicked ? 'nav-menu-active' : 'nav-menu'}>
                     {MenuItems.map((item,index) => {
                         return(
                             <li key={index}>
@@ -53,11 +53,11 @@ class Navbar extends React.Component {
                         )
                     })}
                 </ul>
-
+                {/* TODO: Doesn't align properly */}
+                <Button>Sign In</Button>
             </nav>
         );
     }
-
 }
 
 export default Navbar;
