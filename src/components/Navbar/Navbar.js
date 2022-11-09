@@ -69,7 +69,9 @@ class Navbar extends React.Component {
                             */
 
                             <li>
-                                <Link to={item.linkPath}>{item.title}</Link>
+                                <Link to={item.linkPath} className={item.cName}>
+                                    {item.title}
+                                </Link>
                             </li>
                             
                         )
