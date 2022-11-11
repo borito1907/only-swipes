@@ -1,10 +1,21 @@
 
 
-function Listing() {
+function Listing(props) {
+
+    let listerName = props.listerName;
+    let timePosted = props.timePosted;
+    let hallName = props.hallName;
+    let mealPeriod = props.mealPeriod;
+    let listingType = props.listingType;
 
     return (
         <div>
-            <h3>This is a listing</h3>
+            <h1>Listing 1</h1>
+            {listerName} wants to {listingType} a {mealPeriod} swipe at {hallName}
+
+            <br />
+            Posted at: {timePosted}
+
         </div>
     );
 
