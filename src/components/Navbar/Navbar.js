@@ -3,18 +3,34 @@ import { Button } from '../Button';
 // import {MenuItems} from './MenuItems';
 import './Navbar.css';
 
+import {Link} from 'react-router-dom';
+
 // TO-DO: Put this in MenuItems.js
 const MenuItems = [
     {
         title: "Home",
         url: "",
-        cName: "nav-links"
+        cName: "nav-links",
+        linkPath: "/"
     },
     {
-        title: "Settings",
+        title: "Chat Rooms",
         url: "",
-        cName: "nav-links"
+        cName: "nav-links",
+        linkPath: "/chatrooms"
     },
+    {
+        title: "Profile",
+        url: "",
+        cName: "nav-links",
+        linkPath: "/profile"
+    },
+    {
+        title: "Sign In",
+        url: "",
+        cName: "nav-links",
+        linkPath: "/signin"
+    }
 ]
 
 class Navbar extends React.Component {
@@ -44,17 +60,23 @@ class Navbar extends React.Component {
                 <ul className={this.state.clicked ? 'nav-menu-active' : 'nav-menu'}>
                     {MenuItems.map((item,index) => {
                         return(
+                            /*
                             <li key={index}>
                                 <a className={item.cName} href = {item.url} >
                                 {item.title}
                                 </a>
                             </li>
+                            */
+
+                            <li>
+                                <Link to={item.linkPath} className={item.cName}>
+                                    {item.title}
+                                </Link>
+                            </li>
                             
                         )
                     })}
                 </ul>
-                {/* TODO: Doesn't align properly */}
-                <Button>Sign In</Button>
             </nav>
         );
     }
