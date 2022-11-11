@@ -10,9 +10,8 @@ function Listing(props) {
 
     return (
         <div>
-            <h1>Listing 1</h1>
+            <h2>Listing</h2>
             {listerName} wants to {listingType} a {mealPeriod} swipe at {hallName}
-
             <br />
             Posted at: {timePosted}
 

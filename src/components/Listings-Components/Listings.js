@@ -7,13 +7,16 @@ function Listings(props) {
     return (
         <div>
             {/* Should loop through all the listings */}
-            <Listing
-                listerName={listings.listerName}
-                timePosted={listings.timePosted}
-                hallName={listings.hallName}
-                mealPeriod={listings.mealPeriod}
-                listingType={listings.listingType}
-            />
+            {listings.map((listing) => (
+                <Listing
+                    listerName={listing.listerName}
+                    timePosted={listing.timePosted}
+                    hallName={listing.hallName}
+                    mealPeriod={listing.mealPeriod}
+                    listingType={listing.listingType}
+                />
+            ))}
+
 
         </div>
     );
