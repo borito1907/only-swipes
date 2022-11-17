@@ -5,7 +5,7 @@ function ChatHistory(props) {
         <div>
         <div>New Chats!</div>
             <ul>
-                {props.chats.filter(chat => chat.isNewChat = true).map(filteredChat => (
+                {props.chats.filter(chat => chat.isNewChat).map(filteredChat => (
                     <ChatItem
                         id={filteredChat.id}
                         chatter1={filteredChat.chatter1}
@@ -16,7 +16,7 @@ function ChatHistory(props) {
 
         <div>Chat History</div>
             <ul>
-                {props.chats.filter(chat => chat.isNewChat = false).map(filteredChat => (
+                {props.chats.filter(chat => !chat.isNewChat).map(filteredChat => (
                     <ChatItem
                         id={filteredChat.id}
                         chatter1={filteredChat.chatter1}

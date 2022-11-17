@@ -7,14 +7,14 @@ const DUMMY_DATA = [
         chatter1: 'dillon',
         chatter2: 'nitin',
         date: '11/16/22',
-        isNewChat: true
+        isNewChat: 1
     },
     {
         id: 'chat2',
         chatter1: 'dillon',
         chatter2: 'sahiti',
         date: '11/10/22',
-        isNewChat: false
+        isNewChat: 0
     },
 ];
 

@@ -1,4 +1,3 @@
-import './ChatItem.css'
 
 function ChatItem(props) {
     return (
@@ -6,13 +5,13 @@ function ChatItem(props) {
             {/* Might have to clear floats for this to work*/}
             {/* visit https://css-tricks.com/left-align-and-right-align-text-on-the-same-line/ */}
             <div>
-                <p class="alignLeft"> 
-                    Chat with {props.chatter1} and {props.chatter2}
-                </p>
+                <span> 
+                    Chat with {props.chatter1} and {props.chatter2}||
+                </span>
                 
-                <p class="alignRight">
+                <span>
                     Date Created: {props.date}
-                </p>
+                </span>
             </div>
         </li>
     );
