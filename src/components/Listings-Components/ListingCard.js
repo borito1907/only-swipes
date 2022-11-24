@@ -5,8 +5,10 @@ import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+
 function ListingCard({ listing }) {
 
+    const userID = "2";
 
     return (
         <div>
@@ -23,7 +25,10 @@ function ListingCard({ listing }) {
                 </CardContent>
 
                 <CardActions>
-                    <Button size="medium">Contact {listing.listingType}er </Button>
+                    <Button size="medium"> Contact {listing.listingType}er </Button>
+                    {listing.listerID === userID &&
+                        <Button size="medium" color="error"> Remove Listing </Button>
+                    }
                 </CardActions>
 
             </Card>

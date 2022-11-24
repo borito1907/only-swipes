@@ -10,8 +10,9 @@ function ListingPage() {
 
     return (
         <div>
+            <br />
             <Listings listings={listings} />
-        </div>
+        </div >
     );
 }
 
