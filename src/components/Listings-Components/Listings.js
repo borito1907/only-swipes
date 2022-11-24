@@ -1,4 +1,4 @@
-import Listing from './Listing.js'
+import ListingCard from './ListingCard.js'
 
 function Listings(props) {
 
@@ -8,13 +8,7 @@ function Listings(props) {
         <div>
             {/* Should loop through all the listings */}
             {listings.map((listing) => (
-                <Listing
-                    listerName={listing.listerName}
-                    timePosted={listing.timePosted}
-                    hallName={listing.hallName}
-                    mealPeriod={listing.mealPeriod}
-                    listingType={listing.listingType}
-                />
+                <ListingCard listing={listing} />
             ))}
 
 

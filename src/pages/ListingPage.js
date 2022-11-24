@@ -6,8 +6,6 @@ const listings = [
 ];
 
 
-
-
 function ListingPage() {
 
     return (
