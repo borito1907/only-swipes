@@ -8,6 +8,7 @@ function Listings(props) {
 
     return (
         <Container>
+            <h1>Listings</h1>
             <Grid container spacing={1}>
                 {listings.map((listing) => (
                     <Grid item xs={12} md={6} lg={4} key={listing.listerID}>

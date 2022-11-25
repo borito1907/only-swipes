@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -13,34 +14,46 @@ import CardHeader from '@mui/material/CardHeader';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-const userID = "2";
+import { db } from "../../firebase.js";
+import { collection, addDoc } from "firebase/firestore";
+
+const userID = "3";
 
 function CreateListing() {
 
     const listerID = userID;
-    var timePosted;
     const [location, setLocation] = React.useState('Anywhere');
     const [mealPeriod, setMealPeriod] = React.useState('');
     const [listingType, setListingType] = React.useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
+    // const listingsCollectionRef = collection(db, "listings");
+
+    const submitListing = async () => {
 
         const date = new Date();
-        timePosted = date.getHours() + ':' + date.getMinutes();
+        let timePosted = date.getHours() + ':' + date.getMinutes();
 
-        //send to db
+        // await addDoc(listingsCollectionRef,
+        //     {
+        //         listerID: listerID,
+        //         listingType: listingType,
+        //         location: location,
+        //         mealPeriod: mealPeriod,
+        //         timePosted: timePosted
+        //     });
 
-    }
+    };
+
 
     return (
         <Container>
-            <Card sx={{ maxWidth: 450 }} >
+            <h1>Create New Listing</h1>
+            <Card sx={{ maxWidth: 500 }} >
                 <CardHeader
                     title="New Listing"
                 />
                 <CardContent>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={submitListing}>
                         <FormControl sx={{ m: 1, minWidth: 120 }}>
                             <FormLabel>Listing Type</FormLabel>
                             <RadioGroup value={listingType} onChange={(e) => setListingType(e.target.value)}>
@@ -67,13 +80,12 @@ function CreateListing() {
                                 value={location}
                                 onChange={(e) => setLocation(e.target.value)}
                                 label="location"
+                                defaultValue="Anywhere"
                             >
-                                <MenuItem value="">
-                                    <em>Anywhere</em>
-                                </MenuItem>
+                                <MenuItem value={"Anywhere"}>Anywhere</MenuItem>
                                 <MenuItem value={"Epicuria"}>Epicuria</MenuItem>
                                 <MenuItem value={"De Neve"}>De Neve</MenuItem>
-                                <MenuItem value={"Bplate"}>BPlate</MenuItem>
+                                <MenuItem value={"Bplate"}>Bplate</MenuItem>
                                 <MenuItem value={"Rende"}>Rende</MenuItem>
                                 <MenuItem value={"Bcafe"}>Bcafe</MenuItem>
                                 <MenuItem value={"The Study"}>The Study</MenuItem>
