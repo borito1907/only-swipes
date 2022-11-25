@@ -20,7 +20,7 @@ function ListingCard({ listing }) {
 
                 <CardContent>
                     <Typography variant="body2">
-                        {listing.mealPeriod} swipe at {listing.hallName}
+                        {listing.mealPeriod} swipe for {listing.location}
                     </Typography>
                 </CardContent>
 
