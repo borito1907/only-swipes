@@ -1,6 +1,13 @@
+import React from 'react';
 import './ChatRooms.css';
 import ChatHistory from '../components/ChatRooms/ChatHistory';
 
+import { useState, useEffect } from "react";
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+
+
+/*
 const DUMMY_DATA = [
     {
         id: 'chat1',
@@ -17,22 +24,38 @@ const DUMMY_DATA = [
         isNewChat: 0
     },
 ];
+*/
 
 function ChatRoomsPage() {
+    const [chats, setChats] = useState([]);
+    const chatsRef = collection(db, "chats");
+
+    useEffect(() => {
+
+        const getChats = async () => {
+            const data = await getDocs(chatsRef);
+            setChats(data.docs.map((doc) =>({...doc.data(), id: doc.id})));
+        }
+
+        getChats()
+
+        console.log("hello")
+
+    }, [])
+
     return (
         /* add class "splitScreen" to the parent div of the divs you want to be split */
-        <div class="splitScreen">
+        <div className="splitScreen">
             
-            <div class="leftPane">
-                <ChatHistory chats = {DUMMY_DATA} />
+            <div className="leftPane">
+                <ChatHistory chats = {chats} />
             </div>
 
-            <div class="rightPane">
+            <div className="rightPane">
                 DISPLAY ACTIVE CHAT
             </div>
             
         </div>
-
     );
 }
 
