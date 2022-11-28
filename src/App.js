@@ -1,42 +1,52 @@
 import { Routes, Route } from 'react-router-dom';
 
-import './App.css';
-import React from "react";
-import Navbar from './components/Navbar/Navbar';
+import { ChakraProvider } from "@chakra-ui/react"
+import { router } from './lib/routes';
+import { RouterProvider } from "react-router-dom"
 
-import HomePage from './pages/Home';
-import ChatRoomsPage from './pages/ChatRooms';
-import ProfilePage from './pages/Profile';
+// import './App.css';
+// import React from "react";
+// import Navbar from './components/Navbar/Navbar';
 
-// Authentication
-import { AuthContextProvider } from './components/Authentication/context/AuthContext';
-import ProtectedRoute from './components/Authentication/ProtectedRoute';
-import SignIn from './components/Authentication/Signin';
-import Signup from './components/Authentication/Signup';
-import Account from './components/Authentication/Account';
+// import HomePage from './pages/Home';
+// import ChatRoomsPage from './pages/ChatRooms';
+// import ProfilePage from './pages/Profile';
 
-class App extends React.Component{
-  render(){
-    return (
-      <div className="App">
-        <div><Navbar /></div>
-          <AuthContextProvider>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/chatrooms" element={<ChatRoomsPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/signin" element={<SignIn />} />
-              <Route path='/signup' element={<Signup />} />
-              <Route path='/account' element={
-                <ProtectedRoute>
-                  <Account />
-                </ProtectedRoute>
-                }/>
-            </Routes>
-          </AuthContextProvider>
-      </div>
-    );
-  }  
-}
+// // Authentication
+// import { AuthContextProvider } from './components/Authentication/context/AuthContext';
+// import ProtectedRoute from './components/Authentication/ProtectedRoute';
+// import SignIn from './components/Authentication/Signin';
+// import Signup from './components/Authentication/Signup';
+// import Account from './components/Authentication/Account';
 
-export default App;
+// class App extends React.Component{
+//   render(){
+//     return (
+//       <div className="App">
+//         <div><Navbar /></div>
+//           <AuthContextProvider>
+//             <Routes>
+//               <Route path="/" element={<HomePage />} />
+//               <Route path="/chatrooms" element={<ChatRoomsPage />} />
+//               <Route path="/profile" element={<ProfilePage />} />
+//               <Route path="/signin" element={<SignIn />} />
+//               <Route path='/signup' element={<Signup />} />
+//               <Route path='/account' element={
+//                 <ProtectedRoute>
+//                   <Account />
+//                 </ProtectedRoute>
+//                 }/>
+//             </Routes>
+//           </AuthContextProvider>
+//       </div>
+//     );
+//   }  
+// }
+
+export default function App(){
+  return(
+    <ChakraProvider>
+      <RouterProvider router={router} />
+    </ChakraProvider>
+  );
+};
