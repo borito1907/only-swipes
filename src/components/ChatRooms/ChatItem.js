@@ -1,7 +1,8 @@
 
 function ChatItem(props) {
     return (
-        <li>
+        <li 
+        onClick={() => props.selectChat(props.id)}>
             {/* Might have to clear floats for this to work*/}
             {/* visit https://css-tricks.com/left-align-and-right-align-text-on-the-same-line/ */}
             <div>
@@ -15,6 +16,7 @@ function ChatItem(props) {
             </div>
         </li>
     );
+
 }
 
 export default ChatItem;

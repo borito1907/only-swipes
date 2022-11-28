@@ -28,6 +28,7 @@ const DUMMY_DATA = [
 
 function ChatRoomsPage() {
     const [chats, setChats] = useState([]);
+    const [chatID, setChatID] = useState(Number(0));
     const chatsRef = collection(db, "chats");
 
     useEffect(() => {
@@ -38,21 +39,27 @@ function ChatRoomsPage() {
         }
 
         getChats()
-
-        console.log("hello")
+        setChatID(Number(0))
 
     }, [])
+
+    function selectChat(id) {
+        setChatID(id);
+    }
 
     return (
         /* add class "splitScreen" to the parent div of the divs you want to be split */
         <div className="splitScreen">
             
             <div className="leftPane">
-                <ChatHistory chats = {chats} />
+                <ChatHistory 
+                    chats = {chats} 
+                    selectChat = {selectChat}
+                />
             </div>
 
             <div className="rightPane">
-                DISPLAY ACTIVE CHAT
+                Current displaying { chatID }
             </div>
             
         </div>
