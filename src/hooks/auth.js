@@ -1,6 +1,6 @@
 import { useAuthState } from "react-firebase-hooks/auth"
 import { auth, db } from "../lib/firebase";
-import { DASHBOARD } from "../lib/routes";
+import { DASHBOARD, ROOT } from "../lib/routes";
 import { useState } from "react";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
 import { useToast } from "@chakra-ui/react"
@@ -147,7 +147,7 @@ export function useLogout() {
                 position: "top",
                 duration: 5000,
             })
-            navigate(LOGIN);
+            navigate(ROOT);
         }
     }
 
