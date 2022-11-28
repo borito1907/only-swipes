@@ -1,5 +1,5 @@
 import { Button, Flex, Link } from "@chakra-ui/react";
-import { CHATROOMS, DASHBOARD } from "../../lib/routes";
+import { CHATROOMS, DASHBOARD, FEED } from "../../lib/routes";
 import { Link as RouterLink } from "react-router-dom";
 import { useLogout } from "../../hooks/auth";
 
@@ -24,6 +24,9 @@ export default function Navbar() {
         </Link>
         <Link color="purple" ml="100px" as={RouterLink} to={CHATROOMS}>
           ChatRooms
+        </Link>
+        <Link color="purple" ml="100px" as={RouterLink} to={FEED}>
+          Feed
         </Link>
 
         <Button
