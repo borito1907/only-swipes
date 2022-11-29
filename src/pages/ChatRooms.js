@@ -5,6 +5,18 @@ import ChatHistory from '../components/ChatRooms/ChatHistory';
 import { useState, useEffect } from "react";
 import { db } from '../lib/firebase';
 import { collection, getDocs, updateDoc, doc} from "firebase/firestore";
+import { 
+    Center,
+    Box,
+    Heading,
+    FormControl,
+    FormLabel,
+    Input,
+    Button,
+    FormErrorMessage,
+    Link,
+    Text
+ } from '@chakra-ui/react'
 
 
 /*
@@ -73,7 +85,7 @@ function ChatRoomsPage() {
                 />
             </div>
 
-            <div className="rightPane">
+            <div className="rightPane"><Box mt="12" ml="1" mr="4" maxW="md" p="2" borderWidth="1px" borderRadius="lg" borderColor="purple">
 
                 {/* if chatID is zero (default), then we tell the user to select a chat
                     otherwise, display the associated messages with the current chat's id */}
@@ -88,7 +100,7 @@ function ChatRoomsPage() {
                     )
 
                 )}
-
+            </Box>
             </div>
 
 
