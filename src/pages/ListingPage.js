@@ -7,12 +7,6 @@ import { db } from "../firebase.js";
 import { collection, getDocs } from "firebase/firestore";
 
 
-// const listings = [
-//     { "listerID": "1", "timePosted": "7:00am", "location": "The Study", "mealPeriod": "Breakfast", "listingType": "Sell" },
-//     { "listerID": "2", "timePosted": "9:00am", "location": "Rende", "mealPeriod": "Lunch", "listingType": "Buy" }
-// ];
-
-
 function ListingPage() {
 
 
@@ -33,6 +27,7 @@ function ListingPage() {
     return (
         <div>
             <CreateListing />
+
             <Listings listings={listings} />
         </div >
     );

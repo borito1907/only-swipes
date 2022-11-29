@@ -5,10 +5,21 @@ import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+import { db } from "../../firebase.js";
+import { collection, deleteDoc, doc } from "firebase/firestore";
+
 
 function ListingCard({ listing }) {
 
-    const userID = "2";
+    // const listingsCollectionRef = collection(db, "listings");
+
+    const userID = "3";
+
+    const deleteListing = async (id) => {
+        const listingDoc = doc(db, "listings", id);
+        await deleteDoc(listingDoc);
+    };
+
 
     return (
         <div>
@@ -27,7 +38,7 @@ function ListingCard({ listing }) {
                 <CardActions>
                     <Button size="medium"> Contact {listing.listingType}er </Button>
                     {listing.listerID === userID &&
-                        <Button size="medium" color="error"> Remove Listing </Button>
+                        <Button onClick={() => { deleteListing(listing.id) }} size="medium" color="error"> Remove Listing </Button>
                     }
                 </CardActions>
 

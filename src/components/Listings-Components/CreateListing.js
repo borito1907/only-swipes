@@ -26,22 +26,27 @@ function CreateListing() {
     const [mealPeriod, setMealPeriod] = React.useState('');
     const [listingType, setListingType] = React.useState('');
 
-    // const listingsCollectionRef = collection(db, "listings");
+    const listingsCollectionRef = collection(db, "listings");
 
-    const submitListing = async () => {
+    const submitListing = async (e) => {
+
+        e.preventDefault();
 
         const date = new Date();
         let timePosted = date.getHours() + ':' + date.getMinutes();
 
-        // await addDoc(listingsCollectionRef,
-        //     {
-        //         listerID: listerID,
-        //         listingType: listingType,
-        //         location: location,
-        //         mealPeriod: mealPeriod,
-        //         timePosted: timePosted
-        //     });
+        await addDoc(listingsCollectionRef,
+            {
+                listerID: listerID,
+                listingType: listingType,
+                location: location,
+                mealPeriod: mealPeriod,
+                timePosted: timePosted
+            });
 
+        setLocation("Anywhere");
+        setMealPeriod('');
+        setListingType('');
     };
 
 
