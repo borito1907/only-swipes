@@ -5,26 +5,7 @@ import ChatHistory from '../components/ChatRooms/ChatHistory';
 import { useState, useEffect } from "react";
 import { db } from '../lib/firebase';
 import { collection, getDocs, updateDoc, doc} from "firebase/firestore";
-
-
-/*
-const DUMMY_DATA = [
-    {
-        id: 'chat1',
-        chatter1: 'dillon',
-        chatter2: 'nitin',
-        date: '11/16/22',
-        isNewChat: 1
-    },
-    {
-        id: 'chat2',
-        chatter1: 'dillon',
-        chatter2: 'sahiti',
-        date: '11/10/22',
-        isNewChat: 0
-    },
-];
-*/
+import { passwordValidate } from '../utils/form-validate';
 
 function ChatRoomsPage() {
     const [chats, setChats] = useState([]);
@@ -90,17 +71,6 @@ function ChatRoomsPage() {
                 )}
 
             </div>
-
-
-            {/*{props.chats.filter(chat => !chat.isNewChat).map(filteredChat => (
-                    <ChatItem
-                        id={filteredChat.id}
-                        chatter1={filteredChat.chatter1}
-                        chatter2={filteredChat.chatter2}
-                        date={filteredChat.date}
-                        selectChat={props.selectChat}
-                    />
-            ))}*/}
             
         </div>
     );
