@@ -3,8 +3,10 @@ import './ChatRooms.css';
 import ChatHistory from '../components/ChatRooms/ChatHistory';
 
 import { useState, useEffect } from "react";
-import { db } from '../lib/firebase';
-import { collection, getDocs, updateDoc, doc} from "firebase/firestore";
+import { auth, db } from '../lib/firebase';
+import { collection, getDocs, updateDoc, doc, addDoc} from "firebase/firestore";
+
+import { useAuth } from '../hooks/auth'
 
 import { 
     Center,
@@ -46,7 +48,10 @@ function ChatRoomsPage() {
     const [chats, setChats] = useState([]);
     const [chatID, setChatID] = useState(Number(0));
     const [messages, setMessages] = useState([]);
+    const [messageText, setMessageText] = useState("");
     const chatsRef = collection(db, "chats");
+
+    const auth = useAuth();
 
     useEffect(() => {
 
@@ -60,12 +65,19 @@ function ChatRoomsPage() {
 
     }, [])
 
+    const sendMessage = async () => {
+        console.log(messageText);
+
+        const messagesRef = collection(db, "/chats/" + chatID + "/messages")
+        await addDoc(messagesRef, {sender: auth.user.username, text: messageText});
+    };
+
     const selectChat = async (id) => {
         setChatID(id);
         
-        const userDoc = doc(db, "chats", id)
+        const chatDoc = doc(db, "chats", id)
         const newFields = {isNewChat: false}
-        await updateDoc(userDoc, newFields)
+        await updateDoc(chatDoc, newFields)
 
         const messagesRef = collection(db, "/chats/" + id + "/messages")
 
@@ -105,6 +117,15 @@ function ChatRoomsPage() {
 
                 )}
             </Box>
+                    <input type="text" placeholder="Message"
+                        onChange={(event) => {
+                            setMessageText(event.target.value);
+                        }}
+                    />
+
+                    <button onClick={() => {sendMessage(messageText)}}>
+                        Send
+                    </button>
             </div>
             
         </div>
