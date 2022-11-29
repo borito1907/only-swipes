@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 
 import ListingsView from '../components/feed-components/ListingsView.js'
-// import CreateListing from '../components/Listings-Components/CreateListing'
+import CreateListing from '../components/feed-components/CreateListing'
 
 import { db } from "../lib/firebase.js";
 import { collection, getDocs } from "firebase/firestore";
-
-import Button from '@mui/material/Button';
 
 function Feed() {
 
@@ -27,7 +25,7 @@ function Feed() {
 
     return (
         <div>
-            {/* <CreateListing /> */}
+            <CreateListing />
             <ListingsView listings={listings} />
         </div >
     );
