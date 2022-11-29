@@ -5,7 +5,42 @@ import ChatHistory from '../components/ChatRooms/ChatHistory';
 import { useState, useEffect } from "react";
 import { db } from '../lib/firebase';
 import { collection, getDocs, updateDoc, doc} from "firebase/firestore";
+
+import { 
+    Center,
+    Box,
+    Heading,
+    FormControl,
+    FormLabel,
+    Input,
+    Button,
+    FormErrorMessage,
+    Link,
+    Text
+ } from '@chakra-ui/react'
+
+
+/*
+const DUMMY_DATA = [
+    {
+        id: 'chat1',
+        chatter1: 'dillon',
+        chatter2: 'nitin',
+        date: '11/16/22',
+        isNewChat: 1
+    },
+    {
+        id: 'chat2',
+        chatter1: 'dillon',
+        chatter2: 'sahiti',
+        date: '11/10/22',
+        isNewChat: 0
+    },
+];
+*/
+
 import { passwordValidate } from '../utils/form-validate';
+
 
 function ChatRoomsPage() {
     const [chats, setChats] = useState([]);
@@ -54,7 +89,7 @@ function ChatRoomsPage() {
                 />
             </div>
 
-            <div className="rightPane">
+            <div className="rightPane"><Box mt="12" ml="1" mr="4" maxW="md" p="2" borderWidth="1px" borderRadius="lg" borderColor="purple">
 
                 {/* if chatID is zero (default), then we tell the user to select a chat
                     otherwise, display the associated messages with the current chat's id */}
@@ -69,7 +104,7 @@ function ChatRoomsPage() {
                     )
 
                 )}
-
+            </Box>
             </div>
             
         </div>
