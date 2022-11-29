@@ -1,20 +1,38 @@
+import './ChatItems.css';
+import { 
+    Center,
+    Box,
+    Heading,
+    FormControl,
+    FormLabel,
+    Input,
+    Button,
+    FormErrorMessage,
+    Link,
+    Text
+ } from '@chakra-ui/react'
 
 function ChatItem(props) {
     return (
-        <li>
+        <ul className="ChatWith">
+        <Box bg="#E6E6FA" mx="auto" maxW="unset" maxH="sm" p="2" borderWidth="1px" borderRadius="inherit">
+        <li 
+        onClick={() => props.selectChat(props.id)}>
+        
             {/* Might have to clear floats for this to work*/}
             {/* visit https://css-tricks.com/left-align-and-right-align-text-on-the-same-line/ */}
             <div>
                 <span> 
-                    Chat with {props.chatter1} and {props.chatter2}||
-                </span>
+                <Text fontSize="md">Chat with {props.chatter1} and {props.chatter2}
+                </Text></span>
                 
                 <span>
-                    Date Created: {props.date}
-                </span>
+                    <Text fontSize="sm">Date Created: {props.date}
+                    </Text></span>
             </div>
-        </li>
+        </li></Box></ul>
     );
+
 }
 
 export default ChatItem;
