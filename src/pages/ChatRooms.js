@@ -21,28 +21,7 @@ import {
     Text
  } from '@chakra-ui/react'
 
-
-/*
-const DUMMY_DATA = [
-    {
-        id: 'chat1',
-        chatter1: 'dillon',
-        chatter2: 'nitin',
-        date: '11/16/22',
-        isNewChat: 1
-    },
-    {
-        id: 'chat2',
-        chatter1: 'dillon',
-        chatter2: 'sahiti',
-        date: '11/10/22',
-        isNewChat: 0
-    },
-];
-*/
-
 import { passwordValidate } from '../utils/form-validate';
-
 
 function ChatRoomsPage() {
     const [chats, setChats] = useState([]);
@@ -66,10 +45,17 @@ function ChatRoomsPage() {
     }, [])
 
     const sendMessage = async () => {
-        console.log(messageText);
-
         const messagesRef = collection(db, "/chats/" + chatID + "/messages")
         await addDoc(messagesRef, {sender: auth.user.username, text: messageText});
+
+        const getMessages = async () => {
+            const data = await getDocs(messagesRef);
+            setMessages(data.docs.map((doc) =>({...doc.data(), id: doc.id})));
+        }
+        
+        getMessages()
+
+        document.getElementById("message-buffer").value = ""
     };
 
     const selectChat = async (id) => {
@@ -78,6 +64,13 @@ function ChatRoomsPage() {
         const chatDoc = doc(db, "chats", id)
         const newFields = {isNewChat: false}
         await updateDoc(chatDoc, newFields)
+
+        const getChats = async () => {
+            const data = await getDocs(chatsRef);
+            setChats(data.docs.map((doc) =>({...doc.data(), id: doc.id})));
+        }
+
+        getChats()
 
         const messagesRef = collection(db, "/chats/" + id + "/messages")
 
@@ -117,7 +110,7 @@ function ChatRoomsPage() {
 
                 )}
             </Box>
-                    <input type="text" placeholder="Message"
+                    <input id="message-buffer" type="text" placeholder="Message"
                         onChange={(event) => {
                             setMessageText(event.target.value);
                         }}
