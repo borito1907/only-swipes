@@ -48,6 +48,7 @@ function ChatRoomsPage() {
     const [chats, setChats] = useState([]);
     const [chatID, setChatID] = useState(Number(0));
     const [messages, setMessages] = useState([]);
+    const [messageText, setMessageText] = useState("");
     const chatsRef = collection(db, "chats");
 
     const auth = useAuth();
@@ -64,7 +65,9 @@ function ChatRoomsPage() {
 
     }, [])
 
-    const sendMessage = async (messageText) => {
+    const sendMessage = async () => {
+        console.log(messageText);
+
         const messagesRef = collection(db, "/chats/" + chatID + "/messages")
         await addDoc(messagesRef, {sender: auth.user.username, text: messageText});
     };
@@ -114,6 +117,15 @@ function ChatRoomsPage() {
 
                 )}
             </Box>
+                    <input type="text" placeholder="Message"
+                        onChange={(event) => {
+                            setMessageText(event.target.value);
+                        }}
+                    />
+
+                    <button onClick={() => {sendMessage(messageText)}}>
+                        Send
+                    </button>
             </div>
             
         </div>
