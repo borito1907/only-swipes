@@ -21,30 +21,32 @@ export const CHATROOMS = "/protected/chatrooms"
 export const FEED = "feed"
 
 export const router = createBrowserRouter([
-    {path: ROOT, element: <Landing/> },
-    {path: LOGIN, element: <Login/>},
-    {path: REGISTER, element: <Register/>},
-    {path: PROTECTED, element: <Layout />, children:[
-        {
-            path: DASHBOARD,
-            element: <Dashboard />
-        },
-        {
-            path: USERS,
-            element: "Users"
-        },
-        {
-            path: PROFILE,
-            element: "User profile for a specific id"
-        },
-        {
-            path: CHATROOMS,
-            element: <ChatRoomsPage />
-        },
-        {
-            path: FEED,
-            element: "feed"
-        },
-        
-    ]}
+    { path: ROOT, element: <Landing /> },
+    { path: LOGIN, element: <Login /> },
+    { path: REGISTER, element: <Register /> },
+    {
+        path: PROTECTED, element: <Layout />, children: [
+            {
+                path: DASHBOARD,
+                element: <Dashboard />
+            },
+            {
+                path: USERS,
+                element: "Users"
+            },
+            {
+                path: PROFILE,
+                element: "User profile for a specific id"
+            },
+            {
+                path: CHATROOMS,
+                element: <ChatRoomsPage />
+            },
+            {
+                path: FEED,
+                element: <Feed />
+            },
+
+        ]
+    }
 ])
