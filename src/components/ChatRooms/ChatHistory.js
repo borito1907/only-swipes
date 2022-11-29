@@ -24,8 +24,8 @@ function ChatHistory(props) {
         <div>
         <div><Heading paddingLeft="2" mb="4" size="lg" color="purple" textAling="center">New Chats</Heading></div>
             <ul>
-                {props.chats.filter(chat => ((chat.chatter1 === auth.user.id ||
-                                             chat.chatter2 === auth.user.id) &&
+                {props.chats.filter(chat => ((chat.chatter1 === auth.user.username ||
+                                             chat.chatter2 === auth.user.username) &&
                                              chat.isNewChat)).map(filteredChat => (
                     <ChatItem
                         id={filteredChat.id}
@@ -39,8 +39,8 @@ function ChatHistory(props) {
 
         <div className="ChatHistory"><Heading paddingLeft="4" mb="4" size="sm" color="purple" textAling="center">Chat History</Heading></div>
             <ul>
-                {props.chats.filter(chat => ((chat.chatter1 === auth.user.id ||
-                                             chat.chatter2 === auth.user.id) &&
+                {props.chats.filter(chat => ((chat.chatter1 === auth.user.username ||
+                                             chat.chatter2 === auth.user.username) &&
                                              !chat.isNewChat)).map(filteredChat => (
                     <ChatItem
                         id={filteredChat.id}

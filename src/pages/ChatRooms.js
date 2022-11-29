@@ -3,8 +3,10 @@ import './ChatRooms.css';
 import ChatHistory from '../components/ChatRooms/ChatHistory';
 
 import { useState, useEffect } from "react";
-import { db } from '../lib/firebase';
-import { collection, getDocs, updateDoc, doc} from "firebase/firestore";
+import { auth, db } from '../lib/firebase';
+import { collection, getDocs, updateDoc, doc, addDoc} from "firebase/firestore";
+
+import { useAuth } from '../hooks/auth'
 
 import { 
     Center,
@@ -48,6 +50,8 @@ function ChatRoomsPage() {
     const [messages, setMessages] = useState([]);
     const chatsRef = collection(db, "chats");
 
+    const auth = useAuth();
+
     useEffect(() => {
 
         const getChats = async () => {
@@ -60,12 +64,17 @@ function ChatRoomsPage() {
 
     }, [])
 
+    const sendMessage = async (messageText) => {
+        const messagesRef = collection(db, "/chats/" + chatID + "/messages")
+        await addDoc(messagesRef, {sender: auth.user.username, text: messageText});
+    };
+
     const selectChat = async (id) => {
         setChatID(id);
         
-        const userDoc = doc(db, "chats", id)
+        const chatDoc = doc(db, "chats", id)
         const newFields = {isNewChat: false}
-        await updateDoc(userDoc, newFields)
+        await updateDoc(chatDoc, newFields)
 
         const messagesRef = collection(db, "/chats/" + id + "/messages")
 
