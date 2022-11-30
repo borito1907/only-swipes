@@ -15,7 +15,7 @@ function ActiveUser() {
         <Avatar user={user} />
         <Code>@{user.username}</Code>
         <Button colorScheme="purple" w="full" as={Link} to={`${PROTECTED}/profile/${user.id}`}>
-            Edit Profile
+            View Profile
         </Button>
     </Stack>
     );

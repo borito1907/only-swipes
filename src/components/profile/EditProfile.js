@@ -47,7 +47,7 @@ import {
               loadingText="Uploading"
               w="full"
               my="6"
-              colorScheme="teal"
+              colorScheme="purple"
               onClick={updateAvatar}
               isLoading={fileLoading}
             >
