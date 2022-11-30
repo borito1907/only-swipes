@@ -11,21 +11,31 @@ import {
     Stack,
     RadioGroup,
     Radio,
-    Select
+    Select,
+    NumberInput,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper
 } from '@chakra-ui/react'
-
 
 import { db } from "../../lib/firebase.js";
 import { collection, addDoc } from "firebase/firestore";
 
-const userID = "3";
+import { useAuth } from '../../hooks/auth'
 
 function CreateListing() {
 
-    const listerID = userID;
+
     const [location, setLocation] = React.useState('Anywhere');
     const [mealPeriod, setMealPeriod] = React.useState('');
     const [listingType, setListingType] = React.useState('');
+    const [price, setPrice] = React.useState(9.00);
+
+    const { user, isLoading } = useAuth();
+    if (isLoading) return "Loading..."
+
+    const listerID = user.username;
 
     const listingsCollectionRef = collection(db, "listings");
 
@@ -43,14 +53,14 @@ function CreateListing() {
                 listingType: listingType,
                 location: location,
                 mealPeriod: mealPeriod,
-                timePosted: timePosted
+                timePosted: timePosted,
+                price: price
             });
 
         setLocation("Anywhere");
         setMealPeriod('');
         setListingType('');
-
-
+        setPrice(9.00)
     };
 
 
@@ -73,7 +83,7 @@ function CreateListing() {
                             </RadioGroup>
                         </FormControl>
 
-                        <FormControl mt={4}>
+                        <FormControl mt={3}>
                             <FormLabel>Meal Period</FormLabel>
                             <RadioGroup onChange={setMealPeriod} value={mealPeriod}>
                                 <Stack direction='row'>
@@ -85,7 +95,7 @@ function CreateListing() {
                             </RadioGroup>
                         </FormControl>
 
-                        <FormControl mt={4}>
+                        <FormControl mt={3}>
                             <FormLabel>Location</FormLabel>
                             <Select onChange={(e) => setLocation(e.target.value)} value={location}>
                                 <option value={"Anywhere"}>Anywhere</option>
@@ -102,73 +112,23 @@ function CreateListing() {
                             </Select>
                         </FormControl>
 
-                        <Button width="full" mt={4} type="submit">Post</Button>
+                        <FormControl mt={3}>
+                            <FormLabel>Price</FormLabel>
+                            <NumberInput defaultValue={9} precision={2} step={1}>
+                                <NumberInputField onChange={(e) => setPrice(e.target.value)} value={price} />
+                                <NumberInputStepper>
+                                    <NumberIncrementStepper />
+                                    <NumberDecrementStepper />
+                                </NumberInputStepper>
+                            </NumberInput>
+                        </FormControl>
+
+                        <Button colorScheme='blue' width="full" mt={4} type="submit">Post</Button>
 
                     </form>
                 </Box>
             </Box>
         </Flex>
-        // <Container>
-        //     <h1>Create New Listing</h1>
-        //     <Card sx={{ maxWidth: 500 }} >
-        //         <CardHeader
-        //             title="New Listing"
-        //         />
-        //         <CardContent>
-        //             <form onSubmit={submitListing}>
-        //                 <FormControl sx={{ m: 1, minWidth: 120 }}>
-        //                     <FormLabel>Listing Type</FormLabel>
-        //                     <RadioGroup value={listingType} onChange={(e) => setListingType(e.target.value)}>
-        //                         <FormControlLabel value="Buy" control={<Radio />} label="Buy" />
-        //                         <FormControlLabel value="Sell" control={<Radio />} label="Sell" />
-        //                     </RadioGroup>
-        //                 </FormControl>
-
-        //                 <FormControl sx={{ m: 1, minWidth: 120 }}>
-        //                     <FormLabel>Meal Period</FormLabel>
-        //                     <RadioGroup value={mealPeriod} onChange={(e) => setMealPeriod(e.target.value)}>
-        //                         <FormControlLabel value="Breakfast" control={<Radio />} label="Breakfast" />
-        //                         <FormControlLabel value="Lunch" control={<Radio />} label="Lunch" />
-        //                         <FormControlLabel value="Dinner" control={<Radio />} label="Dinner" />
-        //                         <FormControlLabel value="Late Night" control={<Radio />} label="Late Night" />
-        //                     </RadioGroup>
-        //                 </FormControl>
-
-        //                 <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        //                     <FormLabel>Location</FormLabel>
-        //                     <Select
-        //                         labelId="location-label"
-        //                         id="location"
-        //                         value={location}
-        //                         onChange={(e) => setLocation(e.target.value)}
-        //                         label="location"
-        //                         defaultValue="Anywhere"
-        //                     >
-        //                         <MenuItem value={"Anywhere"}>Anywhere</MenuItem>
-        //                         <MenuItem value={"Epicuria"}>Epicuria</MenuItem>
-        //                         <MenuItem value={"De Neve"}>De Neve</MenuItem>
-        //                         <MenuItem value={"Bplate"}>Bplate</MenuItem>
-        //                         <MenuItem value={"Rende"}>Rende</MenuItem>
-        //                         <MenuItem value={"Bcafe"}>Bcafe</MenuItem>
-        //                         <MenuItem value={"The Study"}>The Study</MenuItem>
-        //                         <MenuItem value={"The Drey"}>The Drey</MenuItem>
-        //                         <MenuItem value={"Epicuria Ackerman"}>Epicuria at Ackerman</MenuItem>
-        //                         <MenuItem value={"Food Truck"}>Food Truck</MenuItem>
-        //                         <MenuItem value={"ASUCLA"}>ASUCLA Ticket</MenuItem>
-        //                     </Select>
-        //                 </FormControl>
-
-        //                 <br />
-
-        //                 <Stack spacing={2} direction="row">
-        //                     <Button type="submit" variant="contained">Post</Button>
-        //                     {/* <Button type="cancel" variant="contained" color="error">Cancel</Button> */}
-        //                 </Stack>
-        //             </form>
-
-        //         </CardContent>
-        //     </Card>
-        // </Container >
     )
 }
 
