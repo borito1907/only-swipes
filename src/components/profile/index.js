@@ -14,6 +14,7 @@ import {
   Box
 } from "@chakra-ui/react";
 import EditAvatar from "./EditAvatar";
+import EditProfile from "./EditProfile"
 import { useUser } from "../../hooks/users";
 import { useParams } from "react-router-dom";
 import Avatar from "./Avatar";
@@ -24,9 +25,8 @@ export default function Profile() {
   const { id } = useParams();
   const { user, isLoading: userLoading } = useUser(id);
   const { user: authUser, isLoading: authLoading } = useAuth();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isOpen : isOpenDetails, onOpen : onOpenDetails, onClose : onCloseDetails } = useDisclosure();
-  
+  const { isOpen: isOpenAvatar, onOpen: onOpenAvatar, onClose: onCloseAvatar } = useDisclosure();
+  const { isOpen: isOpenDetails, onOpen: onOpenDetails, onClose: onCloseDetails } = useDisclosure();
 
   if (userLoading) return "Loading...";
 
@@ -42,13 +42,11 @@ export default function Profile() {
             top="6"
             right="6"
             colorScheme="purple"
-            onClick={onOpen}
+            onClick={onOpenAvatar}
           >
-            Change avatar
+          Change Avatar
           </Button>
-          
         )}
-
 
         <Stack ml="10">
           <Text fontSize="2xl">{user.username}</Text>
@@ -59,20 +57,21 @@ export default function Profile() {
           </HStack>
         </Stack>
 
-        <EditAvatar isOpen={isOpen} onClose={onClose} />
+        <EditAvatar isOpen={isOpenAvatar} onClose={onCloseAvatar} />
       </Flex>
       <Divider />
       <Card>
       {!authLoading && authUser.id === user.id && (
+
           <Button
             pos="absolute"
             mb="2"
             top="4"
             right="6"
             colorScheme="purple"
-            onClick={onOpen}
+            onClick={onOpenDetails}
           >
-            Edit details
+          Edit Details
           </Button>
           
         )}
@@ -100,12 +99,13 @@ export default function Profile() {
             </Box>
             <Box>
               <Heading size='xs' textTransform='uppercase'>
-                Favorite dinning hall
+                Favorite dining hall
               </Heading>
               <Text pt='2' fontSize='sm'>
-              {user.dinning}
+              {user.dining}
               </Text>
             </Box>
+            <EditProfile isOpen={isOpenDetails} onclose={onCloseDetails} />
           </Stack>
         </CardBody>
       </Card>

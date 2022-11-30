@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
     { path: ROOT, element: <Landing /> },
     { path: LOGIN, element: <Login /> },
     { path: REGISTER, element: <Register /> },
-    {
+    { 
         path: PROTECTED, element: <Layout />, children: [
             {
                 path: DASHBOARD,

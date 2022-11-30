@@ -106,7 +106,7 @@ export function useRegister() {
                     date: Date.now(),
                     description: "Not Specified",
                     building: "Not Specified",
-                    dinning: "Not Specified",
+                    dining: "Not Specified",
                 });
 
                 toast({
