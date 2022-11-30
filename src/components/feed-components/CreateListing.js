@@ -39,6 +39,8 @@ function CreateListing() {
 
     const listingsCollectionRef = collection(db, "listings");
 
+    const listingsRef = collection(db, "listings");
+
     const submitListing = async (e) => {
 
         e.preventDefault();
