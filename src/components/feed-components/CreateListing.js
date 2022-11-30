@@ -46,8 +46,8 @@ function CreateListing() {
         e.preventDefault();
 
 
-        const date = new Date();
-        let timePosted = date.getHours() + ':' + date.getMinutes();
+        const today = new Date();
+        let timePosted = today.toLocaleTimeString('en', { hour: 'numeric', hour12: true, minute: 'numeric' });
 
         await addDoc(listingsCollectionRef,
             {
