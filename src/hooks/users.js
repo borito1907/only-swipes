@@ -8,7 +8,6 @@ import {
     useDocumentData,
   } from "react-firebase-hooks/firestore";
   import { useNavigate } from "react-router-dom";
-import { type } from "@testing-library/user-event/dist/type";
 
 export function useUser(id){
     const q = query(doc(db, "users", id));
@@ -18,20 +17,6 @@ export function useUser(id){
 }
 
 
-export function useCheckFriend(uid, seconduid){
-    const q = query(doc(db, "users", uid));
-    const [user, isLoading] = useDocumentData(q);
-    const isFriend = false;
-
-    console.log(user.friends);
-
-    for(var i = 0; i < user.friends.length; i++){
-        if(user.friends[i] === seconduid){
-            isFriend = true;
-        }
-      }
-    return {isFriend, isLoading}
-}
 
 export function useUsers() {
     const [users, isLoading] = useCollectionData(collection(db, "users"));
@@ -63,9 +48,9 @@ export function useUpdateFriends(uid, friendID, isFriend){
         await updateDoc(docUserRef, {friends: isFriend ? arrayRemove(friendID) : arrayUnion(friendID)});
         await updateDoc(docFriendRef, {friends: isFriend ? arrayRemove(uid) : arrayUnion(uid)});
     
-
+      var title_message = isFriend ? "Removed friend succesfully" : "Added friend succesfully";
       toast({
-        title: "Friend added successfully!",
+        title: "title_message",
         status: "success",
         isClosable: true,
         position: "top",
