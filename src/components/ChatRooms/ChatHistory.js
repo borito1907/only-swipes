@@ -1,17 +1,9 @@
 import ChatItem from './ChatItem';
 
 import { 
-    Center,
-    Box,
     Heading,
-    FormControl,
-    FormLabel,
-    Input,
-    Button,
-    FormErrorMessage,
-    Link,
-    Text
- } from '@chakra-ui/react'
+ } 
+ from '@chakra-ui/react'
  import './ChatItems.css';
  
 import { useAuth } from '../../hooks/auth'
@@ -27,6 +19,7 @@ function ChatHistory(props) {
                                              chat.chatter2 === auth.user.username) &&
                                              chat.isNewChat)).map(filteredChat => (
                     <ChatItem
+                        key={filteredChat.id}
                         id={filteredChat.id}
                         chatter1={filteredChat.chatter1}
                         chatter2={filteredChat.chatter2}
@@ -42,6 +35,7 @@ function ChatHistory(props) {
                                              chat.chatter2 === auth.user.username) &&
                                              !chat.isNewChat)).map(filteredChat => (
                     <ChatItem
+                        key={filteredChat.id}
                         id={filteredChat.id}
                         chatter1={filteredChat.chatter1}
                         chatter2={filteredChat.chatter2}
