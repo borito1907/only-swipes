@@ -64,6 +64,7 @@ function ListingCard({ listing }) {
                     <Stack>
                         <Heading size='md'>{listing.listingType + "ing"}</Heading>
                         <Text>{listing.mealPeriod} swipe for {listing.location}</Text>
+                        <Text>{"$" + listing.price}</Text>
                     </Stack>
                 </CardBody>
 

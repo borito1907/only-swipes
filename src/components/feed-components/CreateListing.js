@@ -37,10 +37,6 @@ function CreateListing({ onClose }) {
     const { user, isLoading } = useAuth();
     if (isLoading) return "Loading..."
 
-    const listerUsername = user.username;
-    const listerAvi = user.avatar;
-
-
     const submitListing = async (e) => {
 
         e.preventDefault();
@@ -51,7 +47,7 @@ function CreateListing({ onClose }) {
         const listingsCollectionRef = doc(collection(db, "listings"));
         await setDoc(listingsCollectionRef,
             {
-                listerUsername: listerUsername,
+                listerUsername: user.username,
                 listingType: listingType,
                 location: location,
                 mealPeriod: mealPeriod,
@@ -75,7 +71,7 @@ function CreateListing({ onClose }) {
         setLocation("Anywhere");
         setMealPeriod('');
         setListingType('');
-        setPrice(9.00)
+        setPrice(9.00);
     };
 
 
@@ -128,7 +124,7 @@ function CreateListing({ onClose }) {
 
                     <FormControl mt={3}>
                         <FormLabel>Price</FormLabel>
-                        <NumberInput defaultValue={9} precision={2} step={1}>
+                        <NumberInput defaultValue={9.00} precision={2} step={1}>
                             <NumberInputField onChange={(e) => setPrice(e.target.value)} value={price} />
                             <NumberInputStepper>
                                 <NumberIncrementStepper />
