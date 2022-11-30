@@ -1,5 +1,6 @@
 import './ChatItems.css';
 import { 
+    Heading,
     Box,
     Text
  } 

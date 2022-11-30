@@ -14,7 +14,7 @@ function ChatHistory(props) {
 
     return (
         <div>
-        <div><Heading paddingLeft="2" mb="4" size="lg" color="purple" textAling="center">New Chats</Heading></div>
+        <div><Heading paddingLeft="2" mt="14" mb="4" size="2xl" color="purple" textAling="center">New Chats</Heading></div>
             <ul>
                 {props.chats.filter(chat => ((chat.chatter1 === auth.user.username ||
                                              chat.chatter2 === auth.user.username) &&
@@ -30,7 +30,7 @@ function ChatHistory(props) {
                 ))}
             </ul>
 
-        <div className="ChatHistory"><Heading paddingLeft="4" mb="4" size="sm" color="purple" textAling="center">Chat History</Heading></div>
+        <div className="ChatHistory"><Heading mt="8" paddingLeft="4" mb="8" size="md" color="#CF9FFF" textAling="center">Chat History</Heading></div>
             <ul>
                 {props.chats.filter(chat => ((chat.chatter1 === auth.user.username ||
                                              chat.chatter2 === auth.user.username) &&

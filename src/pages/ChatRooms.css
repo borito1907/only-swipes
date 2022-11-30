@@ -18,11 +18,3 @@
 }
 /* SPLIT SCREEN FUNCTIONALITY END */
 
-.borderInput {
-    border: 1px solid;
-    width: 200px;
-    padding: 2px;
-        font-size: 20px;
-    border-style:solid;
-    border-width:medium;
-}
