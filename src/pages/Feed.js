@@ -7,6 +7,8 @@ import { db } from "../lib/firebase.js";
 import { collection, getDocs, query } from "firebase/firestore";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
+import { Heading } from '@chakra-ui/react'
+
 const listings = [{ "listerID": "2", "listingType": "Sell", "location": "Rende", "mealPeriod": "Lunch", "timePosted": "9:00" }];
 
 function Feed() {
@@ -17,6 +19,7 @@ function Feed() {
 
     return (
         <div>
+            <Heading mt={4} paddingLeft="2" mb="4" size="lg" color="purple" textAling="center">Listings</Heading>
             <ListingsView listings={listings} />
         </div >
     );

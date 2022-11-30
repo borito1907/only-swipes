@@ -3,7 +3,7 @@
 import ListingCard from './ListingCard.js'
 
 
-import { SimpleGrid } from '@chakra-ui/react'
+import { SimpleGrid, Heading } from '@chakra-ui/react'
 
 function ListingsView(props) {
 

@@ -17,7 +17,7 @@ function CreateListingModal() {
 
     return (
         <>
-            <Button w="full" colorScheme='purple' onClick={onOpen}>Post A Listing!</Button>
+            <Button w="full" colorScheme='purple' onClick={onOpen}>Post A Listing</Button>
 
             <Modal closeOnOverlayClick={false} isOpen={isOpen}>
                 <ModalOverlay />
