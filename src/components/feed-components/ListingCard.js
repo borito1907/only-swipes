@@ -1,7 +1,7 @@
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, SimpleGrid, Text, Divider, Button, ButtonGroup } from '@chakra-ui/react'
 
 import { auth, db } from "../../lib/firebase.js";
-import { collection, deleteDoc, doc } from "firebase/firestore";
+import { collection, deleteDoc, doc, addDoc} from "firebase/firestore";
 import { useAuth } from '../../hooks/auth'
 
 function ListingCard({ listing }) {
