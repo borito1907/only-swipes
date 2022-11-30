@@ -39,7 +39,7 @@ function ListingCard({ listing }) {
 
         const { id } = await addDoc(collection(db, "chats"), {
             chatter1: user.username,
-            chatter2: listing.listerID,
+            chatter2: listing.listerUsername,
             isNewChat: true,
             date: withSlashes
         })
@@ -51,9 +51,9 @@ function ListingCard({ listing }) {
                 <CardHeader>
                     <Flex spacing='4'>
                         <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-                            <Avatar user={user} />
+                            <Avatar src={listing.avi} />
                             <Box>
-                                <Heading size='sm'>{listing.listerID}</Heading>
+                                <Heading size='sm'>{listing.listerUsername}</Heading>
                                 <Text>{listing.timePosted}</Text>
                             </Box>
                         </Flex>
@@ -69,10 +69,10 @@ function ListingCard({ listing }) {
 
                 <CardFooter>
                     <ButtonGroup>
-                        {listing.listerID !== user.username &&
+                        {listing.listerUsername !== user.username &&
                             <Button colorScheme='blue' onClick={() => { handleCreate() }}> Contact {listing.listingType}er </Button>
                         }
-                        {listing.listerID === user.username &&
+                        {listing.listerUsername === user.username &&
                             <Button onClick={() => { deleteListing(listing.id) }} colorScheme='red' variant='outline'> Remove </Button>
                         }
                     </ButtonGroup>

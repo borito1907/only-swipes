@@ -37,8 +37,8 @@ function CreateListing({ onClose }) {
     const { user, isLoading } = useAuth();
     if (isLoading) return "Loading..."
 
-    const listerID = user.username;
-
+    const listerUsername = user.username;
+    const listerAvi = user.avatar;
 
 
     const submitListing = async (e) => {
@@ -51,13 +51,14 @@ function CreateListing({ onClose }) {
         const listingsCollectionRef = doc(collection(db, "listings"));
         await setDoc(listingsCollectionRef,
             {
-                listerID: listerID,
+                listerUsername: listerUsername,
                 listingType: listingType,
                 location: location,
                 mealPeriod: mealPeriod,
                 timePosted: timePosted,
                 price: price,
-                id: listingsCollectionRef.id
+                id: listingsCollectionRef.id,
+                avi: user.avatar
             });
 
 
