@@ -38,7 +38,7 @@ function ListingCard({ listing }) {
         const withSlashes = [month, day, year].join('/');
 
         const { id } = await addDoc(collection(db, "chats"), {
-            chatter1: auth.user.username,
+            chatter1: user.username,
             chatter2: listing.listerID,
             isNewChat: true,
             date: withSlashes

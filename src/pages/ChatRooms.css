@@ -18,11 +18,27 @@
 }
 /* SPLIT SCREEN FUNCTIONALITY END */
 
-.borderInput {
-    border: 1px solid;
-    width: 200px;
-    padding: 2px;
-        font-size: 20px;
-    border-style:solid;
-    border-width:medium;
+.message-text {
+    border: 1px solid #800080;
+    border-radius: 5px;
+}
+
+.form-submit-button {
+	background: #7f5bd5;
+	color: white;
+	height: 30px;
+	width: 90px;
+	font: bold15px arial,sans-serif;
+	text-shadow: none;
+    border-radius: 25px;
+    margin-top: 10px;
+}
+
+.form-submit-button:hover {
+	background: #e6e6fa;
+	color: #fff;
+	border: 1px solid #eee;
+	border-radius: 20px;
+	box-shadow: 5px 5px 5px #eee;
+	text-shadow: none;
 }

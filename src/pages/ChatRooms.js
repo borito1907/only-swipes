@@ -99,15 +99,17 @@ function ChatRoomsPage() {
 
                 )}
             </Box>
-                    <input className="borderInput" id="message-buffer" type="text" placeholder="Message"
+                    <input disabled={chatID == 0} className="message-text" id="message-buffer" type="text" placeholder="Message"
                         onChange={(event) => {
                             setMessageText(event.target.value);
                         }}
                     />
 
-                    <button onClick={() => {sendMessage(messageText)}}>
+                    <button className="form-submit-button" disabled={chatID == 0 || document.getElementById("message-buffer").value == ""} 
+                            onClick={() => {sendMessage(messageText)}}>
                         Send
                     </button>
+        
             </div>
             
         </div>
