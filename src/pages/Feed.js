@@ -17,7 +17,6 @@ function Feed() {
 
     return (
         <div>
-            <CreateListing />
             <ListingsView listings={listings} />
         </div >
     );
