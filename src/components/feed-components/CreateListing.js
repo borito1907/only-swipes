@@ -11,7 +11,12 @@ import {
     Stack,
     RadioGroup,
     Radio,
-    Select
+    Select,
+    NumberInput,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper
 } from '@chakra-ui/react'
 
 import { db } from "../../lib/firebase.js";
@@ -25,6 +30,7 @@ function CreateListing() {
     const [location, setLocation] = React.useState('Anywhere');
     const [mealPeriod, setMealPeriod] = React.useState('');
     const [listingType, setListingType] = React.useState('');
+    const [price, setPrice] = React.useState(9.00);
 
     const { user, isLoading } = useAuth();
     if (isLoading) return "Loading..."
@@ -47,14 +53,14 @@ function CreateListing() {
                 listingType: listingType,
                 location: location,
                 mealPeriod: mealPeriod,
-                timePosted: timePosted
+                timePosted: timePosted,
+                price: price
             });
 
         setLocation("Anywhere");
         setMealPeriod('');
         setListingType('');
-
-
+        setPrice(9.00)
     };
 
 
@@ -77,7 +83,7 @@ function CreateListing() {
                             </RadioGroup>
                         </FormControl>
 
-                        <FormControl mt={4}>
+                        <FormControl mt={3}>
                             <FormLabel>Meal Period</FormLabel>
                             <RadioGroup onChange={setMealPeriod} value={mealPeriod}>
                                 <Stack direction='row'>
@@ -89,7 +95,7 @@ function CreateListing() {
                             </RadioGroup>
                         </FormControl>
 
-                        <FormControl mt={4}>
+                        <FormControl mt={3}>
                             <FormLabel>Location</FormLabel>
                             <Select onChange={(e) => setLocation(e.target.value)} value={location}>
                                 <option value={"Anywhere"}>Anywhere</option>
@@ -106,7 +112,18 @@ function CreateListing() {
                             </Select>
                         </FormControl>
 
-                        <Button width="full" mt={4} type="submit">Post</Button>
+                        <FormControl mt={3}>
+                            <FormLabel>Price</FormLabel>
+                            <NumberInput defaultValue={9} precision={2} step={1}>
+                                <NumberInputField onChange={(e) => setPrice(e.target.value)} value={price} />
+                                <NumberInputStepper>
+                                    <NumberIncrementStepper />
+                                    <NumberDecrementStepper />
+                                </NumberInputStepper>
+                            </NumberInput>
+                        </FormControl>
+
+                        <Button colorScheme='blue' width="full" mt={4} type="submit">Post</Button>
 
                     </form>
                 </Box>
