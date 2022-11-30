@@ -7,6 +7,8 @@ import Layout from "../components/layout";
 import Landing from "../Landing";
 import Feed from "../pages/Feed";
 import ChatRoomsPage from "../pages/ChatRooms";
+import Profile from "../components/profile";
+import Users from "../components/users";
 
 export const ROOT = "/";
 export const LOGIN = "/login";
@@ -32,11 +34,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: USERS,
-                element: "Users"
+                element: <Users />
             },
             {
                 path: PROFILE,
-                element: "User profile for a specific id"
+                element: <Profile />
             },
             {
                 path: CHATROOMS,

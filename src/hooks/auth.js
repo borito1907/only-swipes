@@ -104,6 +104,9 @@ export function useRegister() {
                     username: username.toLowerCase(),
                     avatar: "",
                     date: Date.now(),
+                    description: "Not Specified",
+                    building: "Not Specified",
+                    dinning: "Not Specified",
                 });
 
                 toast({
