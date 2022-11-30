@@ -29,6 +29,8 @@ function CreateListing() {
 
     const listingsCollectionRef = collection(db, "listings");
 
+    const listingsRef = collection(db, "listings");
+
     const submitListing = async (e) => {
 
         e.preventDefault();
@@ -37,14 +39,13 @@ function CreateListing() {
         const date = new Date();
         let timePosted = date.getHours() + ':' + date.getMinutes();
 
-        await addDoc(listingsCollectionRef,
-            {
-                listerID: listerID,
-                listingType: listingType,
-                location: location,
-                mealPeriod: mealPeriod,
-                timePosted: timePosted
-            });
+        await addDoc(listingsRef, {
+            listerID: listerID,
+            listingType: listingType,
+            location: location,
+            mealPeriod: mealPeriod,
+            timePosted: timePosted
+        });
 
         setLocation("Anywhere");
         setMealPeriod('');
