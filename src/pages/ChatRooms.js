@@ -118,6 +118,8 @@ function ChatRoomsPage() {
                         Send
                     </button>
             </div>
+
+            <button onClick={() => {handleCreate()}}>hi</button>
             
         </div>
     );
