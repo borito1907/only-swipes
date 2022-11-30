@@ -4,7 +4,7 @@ import ChatHistory from '../components/ChatRooms/ChatHistory';
 
 import { useState, useEffect } from "react";
 import { auth, db } from '../lib/firebase';
-import { collection, getDocs, updateDoc, doc, addDoc} from "firebase/firestore";
+import { collection, getDocs, updateDoc, doc, addDoc, query, orderBy} from "firebase/firestore";
 
 import { useAuth } from '../hooks/auth'
 
@@ -46,13 +46,13 @@ function ChatRoomsPage() {
 
     const sendMessage = async () => {
         const messagesRef = collection(db, "/chats/" + chatID + "/messages")
-        await addDoc(messagesRef, {sender: auth.user.username, text: messageText});
+        await addDoc(messagesRef, {sender: auth.user.username, text: messageText, date: Number(Date.now())});
 
         const getMessages = async () => {
-            const data = await getDocs(messagesRef);
-            setMessages(data.docs.map((doc) =>({...doc.data(), id: doc.id})));
-        }
-        
+            const q = query(messagesRef, orderBy("date", "asc"))
+            const data = await getDocs(q)
+            setMessages(data.docs.map((doc) => ({...doc.data(), id: doc.id})).sort((m1, m2) => m1.date < m2.date));
+        } 
         getMessages()
 
         document.getElementById("message-buffer").value = ""
@@ -69,16 +69,14 @@ function ChatRoomsPage() {
             const data = await getDocs(chatsRef);
             setChats(data.docs.map((doc) =>({...doc.data(), id: doc.id})));
         }
-
         getChats()
 
         const messagesRef = collection(db, "/chats/" + id + "/messages")
-
         const getMessages = async () => {
-            const data = await getDocs(messagesRef);
+            const q = query(messagesRef, orderBy("date", "asc"))
+            const data = await getDocs(q)
             setMessages(data.docs.map((doc) =>({...doc.data(), id: doc.id})));
         }
-        
         getMessages()
     }
 
