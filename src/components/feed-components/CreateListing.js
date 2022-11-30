@@ -83,7 +83,7 @@ function CreateListing({ onClose }) {
             <Box my={4} textAlign="left">
                 <form onSubmit={submitListing}>
 
-                    <FormControl>
+                    <FormControl isRequired={true}>
                         <FormLabel>Listing Type</FormLabel>
                         <RadioGroup onChange={setListingType} value={listingType}>
                             <Stack direction='row'>
@@ -93,7 +93,7 @@ function CreateListing({ onClose }) {
                         </RadioGroup>
                     </FormControl>
 
-                    <FormControl mt={3}>
+                    <FormControl mt={3} isRequired={true}>
                         <FormLabel>Meal Period</FormLabel>
                         <RadioGroup onChange={setMealPeriod} value={mealPeriod}>
                             <Stack direction='row'>
