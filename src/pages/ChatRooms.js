@@ -4,7 +4,8 @@ import ChatHistory from '../components/ChatRooms/ChatHistory';
 
 import { useState, useEffect } from "react";
 import { auth, db } from '../lib/firebase';
-import { collection, getDocs, updateDoc, doc, addDoc, query, orderBy} from "firebase/firestore";
+import { collection, getDocs, updateDoc, doc, addDoc, query, orderBy } from "firebase/firestore";
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import { useAuth } from '../hooks/auth'
 
@@ -26,7 +27,11 @@ import { passwordValidate } from '../utils/form-validate';
 function ChatRoomsPage() {
     const [chats, setChats] = useState([]);
     const [chatID, setChatID] = useState(Number(0));
-    const [messages, setMessages] = useState([]);
+
+    var messagesRef = collection(db, "/chats/" + chatID + "/messages")
+    const q = query(messagesRef, orderBy("date", "asc"))
+    const [messages] = useCollectionData(q, {id: 'id'})
+
     const [messageText, setMessageText] = useState("");
     const chatsRef = collection(db, "chats");
 
@@ -45,15 +50,8 @@ function ChatRoomsPage() {
     }, [])
 
     const sendMessage = async () => {
-        const messagesRef = collection(db, "/chats/" + chatID + "/messages")
+        messagesRef = collection(db, "/chats/" + chatID + "/messages")
         await addDoc(messagesRef, {sender: auth.user.username, text: messageText, date: Number(Date.now())});
-
-        const getMessages = async () => {
-            const q = query(messagesRef, orderBy("date", "asc"))
-            const data = await getDocs(q)
-            setMessages(data.docs.map((doc) => ({...doc.data(), id: doc.id})).sort((m1, m2) => m1.date < m2.date));
-        } 
-        getMessages()
 
         document.getElementById("message-buffer").value = ""
     };
@@ -71,13 +69,6 @@ function ChatRoomsPage() {
         }
         getChats()
 
-        const messagesRef = collection(db, "/chats/" + id + "/messages")
-        const getMessages = async () => {
-            const q = query(messagesRef, orderBy("date", "asc"))
-            const data = await getDocs(q)
-            setMessages(data.docs.map((doc) =>({...doc.data(), id: doc.id})));
-        }
-        getMessages()
     }
 
 
@@ -101,14 +92,14 @@ function ChatRoomsPage() {
                     <p>Select a chat!</p>
 
                 ) : (
-
-                    messages.map(message => 
+                    
+                    messages?.map(message => 
                         <p>{message.sender}: {message.text}</p>
                     )
 
                 )}
             </Box>
-                    <input id="message-buffer" type="text" placeholder="Message"
+                    <input className="borderInput" id="message-buffer" type="text" placeholder="Message"
                         onChange={(event) => {
                             setMessageText(event.target.value);
                         }}
