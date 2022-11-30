@@ -36,7 +36,7 @@ export default function Landing() {
           textAlign={'center'}
           spacing={{ base: 4, md: 8 }}
           py={{ base: 20, md: 36 }}>
-            <Box>
+            <Box mt="-28">
 
             <Heading
             fontWeight={600}

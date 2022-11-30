@@ -1,17 +1,9 @@
 import ChatItem from './ChatItem';
 
 import { 
-    Center,
-    Box,
     Heading,
-    FormControl,
-    FormLabel,
-    Input,
-    Button,
-    FormErrorMessage,
-    Link,
-    Text
- } from '@chakra-ui/react'
+ } 
+ from '@chakra-ui/react'
  import './ChatItems.css';
  
 import { useAuth } from '../../hooks/auth'
