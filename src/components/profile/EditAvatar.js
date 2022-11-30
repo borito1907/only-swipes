@@ -14,7 +14,7 @@ import {
   import Avatar from "./Avatar";
   import { useAuth } from "../../hooks/auth";
   
-  export default function EditProfile({ isOpen, onClose }) {
+  export default function EditAvatar({ isOpen, onClose }) {
     const { user, isLoading: authLoading } = useAuth();
     const {
       setFile,

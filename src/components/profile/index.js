@@ -5,9 +5,15 @@ import {
   HStack,
   Stack,
   Text,
-  useDisclosure,
+  useDisclosure, 
+  Card,
+  CardHeader,
+  CardBody,
+  Heading,
+  StackDivider,
+  Box
 } from "@chakra-ui/react";
-import EditProfile from "./EditProfile";
+import EditAvatar from "./EditAvatar";
 import { useUser } from "../../hooks/users";
 import { useParams } from "react-router-dom";
 import Avatar from "./Avatar";
@@ -44,15 +50,48 @@ export default function Profile() {
           <Text fontSize="2xl">{user.username}</Text>
           <HStack spacing="10">
             <Text color="gray.700" fontSize={["sm", "lg"]}>
-              Joined: {format(user.date, "MMMM YYY")}
+              Account Created: {format(user.date, "MMMM YYY")}
             </Text>
           </HStack>
         </Stack>
 
-        <EditProfile isOpen={isOpen} onClose={onClose} />
+        <EditAvatar isOpen={isOpen} onClose={onClose} />
       </Flex>
       <Divider />
+      <Card>
+        <CardHeader>
+          <Heading size='md'>Account details</Heading>
+        </CardHeader>
 
+        <CardBody>
+          <Stack divider={<StackDivider />} spacing='4'>
+            <Box>
+              <Heading size='xs' textTransform='uppercase'>
+                Description
+              </Heading>
+              <Text pt='2' fontSize='sm'>
+                {user.description}
+              </Text>
+            </Box>
+            <Box>
+              <Heading size='xs' textTransform='uppercase'>
+                Building
+              </Heading>
+              <Text pt='2' fontSize='sm'>
+              {user.building}
+              </Text>
+            </Box>
+            <Box>
+              <Heading size='xs' textTransform='uppercase'>
+                Favorite dinning hall
+              </Heading>
+              <Text pt='2' fontSize='sm'>
+              {user.dinning}
+              </Text>
+            </Box>
+          </Stack>
+        </CardBody>
+      </Card>
     </Stack>
   );
 }
