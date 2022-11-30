@@ -9,6 +9,7 @@ import Feed from "../pages/Feed";
 import ChatRoomsPage from "../pages/ChatRooms";
 import Profile from "../components/profile";
 import Users from "../components/users";
+import Friends from "../components/friends";
 
 export const ROOT = "/";
 export const LOGIN = "/login";
@@ -20,7 +21,7 @@ export const DASHBOARD = "/protected/dashboard";
 export const USERS = "/protected/users"
 export const PROFILE = "/protected/profile/:id"
 export const CHATROOMS = "/protected/chatrooms"
-export const FEED = "feed"
+export const FRIENDS = "/protected/friends"
 
 export const router = createBrowserRouter([
     { path: ROOT, element: <Landing /> },
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
         path: PROTECTED, element: <Layout />, children: [
             {
                 path: DASHBOARD,
-                element: <Dashboard />
+                element: <Feed />
             },
             {
                 path: USERS,
@@ -45,10 +46,9 @@ export const router = createBrowserRouter([
                 element: <ChatRoomsPage />
             },
             {
-                path: FEED,
-                element: <Feed />
+                path: FRIENDS,
+                element: <Friends />
             },
-
         ]
     }
 ])

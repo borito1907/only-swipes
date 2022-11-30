@@ -4,6 +4,7 @@ import { PROTECTED, USERS } from '../../lib/routes'
 import { Link } from "react-router-dom"
 import { useAuth } from '../../hooks/auth'
 import Avatar from '../profile/Avatar'
+import { FRIENDS } from '../../lib/routes'
 
 import CreateListingModal from '../feed-components/CreateListingModal'
 
@@ -50,6 +51,19 @@ export default function Sidebar() {
                     size="sm"
                 >
                     ALL USERS
+                </Button>
+
+            </Box>
+            <Box align="center">
+                <Button
+                    variant="outline"
+                    colorScheme="purple"
+                    as={Link}
+                    to={FRIENDS}
+                    mt="4"
+                    size="sm"
+                >
+                    FRIENDS
                 </Button>
 
             </Box>

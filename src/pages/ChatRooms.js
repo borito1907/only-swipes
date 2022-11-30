@@ -102,7 +102,7 @@ function ChatRoomsPage() {
 
                 )
                 }
-                <Input mr="4" mt="12" ml="1" size='md' width="sm" p="5" colorScheme="purple" borderWidth="1px" borderRadius="md" borderColor="gray" id="message-buffer" type="text" placeholder="Message"
+                <Input mr="4" mt="12" ml="1" size='md' width="sm" p="5" colorScheme="purple" borderWidth="1px" borderRadius="md" borderColor="gray" disabled={chatID == 0} id="message-buffer" type="text" placeholder="Message"
         _active={{
             bg: '#dddfe2',
             transform: 'scale(0.98)',
@@ -118,10 +118,21 @@ function ChatRoomsPage() {
     />
     {/* </Box> */}
 
-    <Button ml="4" mt="4" type="submit" size="md" colorScheme="purple" loadingText="Send" onClick={() => {sendMessage(messageText)}}>
+    <Button ml="4" mt="4" type="submit" size="md" colorScheme="purple" loadingText="Send" disabled={chatID == 0 || document.getElementById("message-buffer").value == ""} onClick={() => {sendMessage(messageText)}}>
         <Text color="white">Send</Text>
     </Button>
 
+                    {/* <input disabled={chatID == 0} className="message-text" id="message-buffer" type="text" placeholder="Message"
+                        onChange={(event) => {
+                            setMessageText(event.target.value);
+                        }}
+                    /> */}
+{/* 
+                    <button className="form-submit-button" disabled={chatID == 0 || document.getElementById("message-buffer").value == ""} 
+                            onClick={() => {sendMessage(messageText)}}>
+                        Send
+                    </button> */}
+        
             </div>
             
         </div>
