@@ -25,6 +25,8 @@ export default function Profile() {
   const { user, isLoading: userLoading } = useUser(id);
   const { user: authUser, isLoading: authLoading } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen : isOpenDetails, onOpen : onOpenDetails, onClose : onCloseDetails } = useDisclosure();
+  
 
   if (userLoading) return "Loading...";
 
@@ -44,7 +46,9 @@ export default function Profile() {
           >
             Change avatar
           </Button>
+          
         )}
+
 
         <Stack ml="10">
           <Text fontSize="2xl">{user.username}</Text>
@@ -59,6 +63,19 @@ export default function Profile() {
       </Flex>
       <Divider />
       <Card>
+      {!authLoading && authUser.id === user.id && (
+          <Button
+            pos="absolute"
+            mb="2"
+            top="4"
+            right="6"
+            colorScheme="purple"
+            onClick={onOpen}
+          >
+            Edit details
+          </Button>
+          
+        )}
         <CardHeader>
           <Heading size='md'>Account details</Heading>
         </CardHeader>
