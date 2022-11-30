@@ -6,9 +6,6 @@ import { useAuth } from '../../hooks/auth'
 
 function ListingCard({ listing }) {
 
-
-    const userID = "3";
-
     const auth = useAuth();
 
     const deleteListing = async (id) => {
@@ -44,8 +41,8 @@ function ListingCard({ listing }) {
                 <Divider />
                 <CardFooter>
                     <ButtonGroup>
-                        <Button colorScheme='blue' onClick={() => {handleCreate()}}> Contact {listing.listingType}er </Button>
-                        {listing.listerID === userID &&
+                        <Button colorScheme='blue' onClick={() => { handleCreate() }}> Contact {listing.listingType}er </Button>
+                        {listing.listerID === auth.user.username &&
                             <Button onClick={() => { deleteListing(listing.id) }} colorScheme='red' variant='outline'> Remove </Button>
                         }
                     </ButtonGroup>
