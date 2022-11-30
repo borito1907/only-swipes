@@ -14,7 +14,6 @@ import {
     Select
 } from '@chakra-ui/react'
 
-
 import { db } from "../../lib/firebase.js";
 import { collection, addDoc } from "firebase/firestore";
 

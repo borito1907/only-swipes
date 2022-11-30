@@ -13,8 +13,6 @@ import Users from "../components/users";
 export const ROOT = "/";
 export const LOGIN = "/login";
 export const REGISTER = "/register";
-
-
 export const PROTECTED = "/protected"
 export const DASHBOARD = "/protected/dashboard";
 export const USERS = "/protected/users"

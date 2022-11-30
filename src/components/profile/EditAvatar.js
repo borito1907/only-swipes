@@ -37,12 +37,14 @@ import {
           <ModalCloseButton />
           <ModalBody>
             <HStack spacing="5">
+              {/* temporarily override the Avatar */}
               <Avatar user={user} overrideAvatar={fileURL} />
               <FormControl py="4">
                 <FormLabel htmlFor="picture">Change avatar</FormLabel>
                 <input type="file" accept="image/*" onChange={handleChange} />
               </FormControl>
             </HStack>
+            {/* submit button */}
             <Button
               loadingText="Uploading"
               w="full"

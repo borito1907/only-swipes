@@ -16,7 +16,6 @@ import {
  
 import { useAuth } from '../../hooks/auth'
 
-
 function ChatHistory(props) {
     const auth = useAuth();
 
