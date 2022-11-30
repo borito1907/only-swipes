@@ -21,7 +21,7 @@ import {
 } from '@chakra-ui/react'
 
 import { db } from "../../lib/firebase.js";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 
 import { useAuth } from '../../hooks/auth'
 
@@ -39,7 +39,7 @@ function CreateListing({ onClose }) {
 
     const listerID = user.username;
 
-    const listingsCollectionRef = collection(db, "listings");
+
 
     const submitListing = async (e) => {
 
@@ -48,15 +48,19 @@ function CreateListing({ onClose }) {
         const today = new Date();
         let timePosted = today.toLocaleTimeString('en', { hour: 'numeric', hour12: true, minute: 'numeric' });
 
-        await addDoc(listingsCollectionRef,
+        const listingsCollectionRef = doc(collection(db, "listings"));
+        await setDoc(listingsCollectionRef,
             {
                 listerID: listerID,
                 listingType: listingType,
                 location: location,
                 mealPeriod: mealPeriod,
                 timePosted: timePosted,
-                price: price
+                price: price,
+                id: listingsCollectionRef.id
             });
+
+
 
 
         toast({

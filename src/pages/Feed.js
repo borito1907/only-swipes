@@ -9,8 +9,6 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import { Heading } from '@chakra-ui/react'
 
-const listings = [{ "listerID": "2", "listingType": "Sell", "location": "Rende", "mealPeriod": "Lunch", "timePosted": "9:00" }];
-
 function Feed() {
 
     const listingsRef = collection(db, "listings");

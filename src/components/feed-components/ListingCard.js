@@ -1,4 +1,19 @@
-import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, SimpleGrid, Text, Divider, Button, ButtonGroup } from '@chakra-ui/react'
+import {
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    Stack,
+    Heading,
+    SimpleGrid,
+    Text,
+    Divider,
+    Button,
+    ButtonGroup,
+    Flex,
+    Avatar,
+    Box
+} from '@chakra-ui/react'
 
 import { auth, db } from "../../lib/firebase.js";
 import { collection, deleteDoc, doc, addDoc } from "firebase/firestore";
@@ -7,8 +22,8 @@ import { useAuth } from '../../hooks/auth'
 function ListingCard({ listing }) {
 
     const { user, isLoading } = useAuth();
-    if (isLoading) return "Loading..."
 
+    if (isLoading) return "Loading...";
 
     const deleteListing = async (id) => {
         const listingDoc = doc(db, "listings", id);
@@ -33,17 +48,30 @@ function ListingCard({ listing }) {
     return (
         <div>
             <Card>
+                <CardHeader>
+                    <Flex spacing='4'>
+                        <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
+                            <Avatar user={user} />
+                            <Box>
+                                <Heading size='sm'>{listing.listerID}</Heading>
+                                <Text>{listing.timePosted}</Text>
+                            </Box>
+                        </Flex>
+                    </Flex>
+                </CardHeader>
+
                 <CardBody>
                     <Stack>
                         <Heading size='md'>{listing.listingType + "ing"}</Heading>
-                        <Text>{"Listed at " + listing.timePosted}</Text>
                         <Text>{listing.mealPeriod} swipe for {listing.location}</Text>
                     </Stack>
                 </CardBody>
-                <Divider />
+
                 <CardFooter>
                     <ButtonGroup>
-                        <Button colorScheme='blue' onClick={() => { handleCreate() }}> Contact {listing.listingType}er </Button>
+                        {listing.listerID !== user.username &&
+                            <Button colorScheme='blue' onClick={() => { handleCreate() }}> Contact {listing.listingType}er </Button>
+                        }
                         {listing.listerID === user.username &&
                             <Button onClick={() => { deleteListing(listing.id) }} colorScheme='red' variant='outline'> Remove </Button>
                         }
