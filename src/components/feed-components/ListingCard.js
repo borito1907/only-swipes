@@ -1,12 +1,14 @@
 import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, SimpleGrid, Text, Divider, Button, ButtonGroup } from '@chakra-ui/react'
 
 import { auth, db } from "../../lib/firebase.js";
-import { collection, deleteDoc, doc, addDoc} from "firebase/firestore";
+import { collection, deleteDoc, doc, addDoc } from "firebase/firestore";
 import { useAuth } from '../../hooks/auth'
 
 function ListingCard({ listing }) {
 
-    const auth = useAuth();
+    const { user, isLoading } = useAuth();
+    if (isLoading) return "Loading..."
+
 
     const deleteListing = async (id) => {
         const listingDoc = doc(db, "listings", id);
@@ -42,7 +44,7 @@ function ListingCard({ listing }) {
                 <CardFooter>
                     <ButtonGroup>
                         <Button colorScheme='blue' onClick={() => { handleCreate() }}> Contact {listing.listingType}er </Button>
-                        {listing.listerID === auth.user.username &&
+                        {listing.listerID === user.username &&
                             <Button onClick={() => { deleteListing(listing.id) }} colorScheme='red' variant='outline'> Remove </Button>
                         }
                     </ButtonGroup>

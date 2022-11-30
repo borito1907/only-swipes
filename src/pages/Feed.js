@@ -20,7 +20,7 @@ function Feed() {
     //     };
 
     //     getListings();
-    // }, [listings]);
+    // }, []);
 
 
 

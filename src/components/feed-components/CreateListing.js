@@ -21,10 +21,15 @@ import { useAuth } from '../../hooks/auth'
 
 function CreateListing() {
 
-    const listerID = auth.user.username;
+
     const [location, setLocation] = React.useState('Anywhere');
     const [mealPeriod, setMealPeriod] = React.useState('');
     const [listingType, setListingType] = React.useState('');
+
+    const { user, isLoading } = useAuth();
+    if (isLoading) return "Loading..."
+
+    const listerID = user.username;
 
     const listingsCollectionRef = collection(db, "listings");
 
