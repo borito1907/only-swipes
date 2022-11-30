@@ -1,7 +1,5 @@
 import { SimpleGrid } from "@chakra-ui/react";
-import { useUsers } from "../../hooks/users";
 import Friend from "./Friend";
-import { getFriends } from "../../hooks/users";
 import { useAuth } from "../../hooks/auth";
 import { Text } from "@chakra-ui/react"
 
