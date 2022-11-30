@@ -16,7 +16,8 @@ import {
     NumberInputField,
     NumberInputStepper,
     NumberIncrementStepper,
-    NumberDecrementStepper
+    NumberDecrementStepper,
+    useToast
 } from '@chakra-ui/react'
 
 import { db } from "../../lib/firebase.js";
@@ -26,6 +27,7 @@ import { useAuth } from '../../hooks/auth'
 
 function CreateListing() {
 
+    const toast = useToast();
 
     const [location, setLocation] = React.useState('Anywhere');
     const [mealPeriod, setMealPeriod] = React.useState('');
@@ -39,12 +41,9 @@ function CreateListing() {
 
     const listingsCollectionRef = collection(db, "listings");
 
-    const listingsRef = collection(db, "listings");
-
     const submitListing = async (e) => {
 
         e.preventDefault();
-
 
         const today = new Date();
         let timePosted = today.toLocaleTimeString('en', { hour: 'numeric', hour12: true, minute: 'numeric' });
@@ -58,6 +57,15 @@ function CreateListing() {
                 timePosted: timePosted,
                 price: price
             });
+
+
+        toast({
+            title: "Listing Posted!",
+            status: "success",
+            isClosable: true,
+            position: "top",
+            duration: 5000,
+        })
 
         setLocation("Anywhere");
         setMealPeriod('');
