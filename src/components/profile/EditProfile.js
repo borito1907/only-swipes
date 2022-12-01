@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { db } from "../../lib/firebase.js";
-import { collection, setDoc, doc, updateDoc } from "firebase/firestore";
+import { collection, doc, updateDoc } from "firebase/firestore";
 
 import { useAuth } from '../../hooks/auth'
 
@@ -12,14 +12,8 @@ import {
     FormControl,
     FormLabel,
     Input,
-    Modal,
     ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalHeader,
     ModalFooter,
-    ModalOverlay,
-    useDisclosure,
     useToast,
     Radio,
     RadioGroup,
@@ -43,7 +37,7 @@ function EditProfile (isOpen, onClose) {
         e.preventDefault();
         
         const userCollectionRef = doc(collection(db, "users", user.id));
-        
+
         await updateDoc(userCollectionRef,
             {
                 description: description,
@@ -61,6 +55,7 @@ function EditProfile (isOpen, onClose) {
             duration: 5000,
         })
   
+        // reset back to original values
         setDescription("");
         setFavDining("Anywhere");
         setMealPlan('No Meal Plan');
