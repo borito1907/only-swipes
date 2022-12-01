@@ -27,8 +27,8 @@ export default function FilterListings({ filter, setFilter }) {
     }
 
     return (
-        <Accordion defaultIndex={[0]} allowMultiple width="50%">
-            <AccordionItem>
+        <Accordion width="50%">
+            < AccordionItem >
                 <h2>
                     <AccordionButton>
                         <Box flex='1' textAlign='left'>
@@ -81,8 +81,8 @@ export default function FilterListings({ filter, setFilter }) {
                         <Button mt={4} type='submit' colorScheme='gray' width="full">Clear Filters</Button>
                     </ form>
                 </AccordionPanel>
-            </AccordionItem>
-        </Accordion>
+            </AccordionItem >
+        </Accordion >
     );
 }
 
