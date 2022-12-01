@@ -57,9 +57,6 @@ function CreateListing({ onClose }) {
                 avi: user.avatar
             });
 
-
-
-
         toast({
             title: "Listing Posted!",
             status: "success",

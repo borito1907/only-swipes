@@ -139,7 +139,7 @@ export default function Profile() {
               Meal plan
               </Heading>
               <Text pt='2' fontSize='sm'>
-              {user.meal_plan}
+              {user.mealPlan}
               </Text>
             </Box>
           </Stack>

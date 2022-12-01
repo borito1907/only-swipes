@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 
 import { db } from "../../lib/firebase.js";
+import { collection, setDoc, doc, updateDoc } from "firebase/firestore";
+
+import { useAuth } from '../../hooks/auth'
+
 
 import {
     Button,
+    Box,
     FormControl,
     FormLabel,
     Input,
@@ -12,8 +17,10 @@ import {
     ModalCloseButton,
     ModalContent,
     ModalHeader,
+    ModalFooter,
     ModalOverlay,
     useDisclosure,
+    useToast,
     Radio,
     RadioGroup,
     Select,
@@ -21,22 +28,59 @@ import {
   } from "@chakra-ui/react";
 
 function EditProfile (isOpen, onClose) {
+    const [description, setDescription] = React.useState("")
     const [favDining, setFavDining] = React.useState('Anywhere');
     const [mealPlan, setMealPlan] = React.useState('No Meal Plan');
     const [building, setBuilding] = React.useState('Not Specified');
-    const [PaymentPref, setPaymentPref] = React.useState('Not Specified');
+    const [paymentPref, setPaymentPref] = React.useState('Not Specified');
+    const toast = useToast();
 
+    const { user, isLoading } = useAuth();
+    if (isLoading) return "Loading..."
+
+    const submitEditProfile = async (e) => {
+
+        e.preventDefault();
+        
+        const userCollectionRef = doc(collection(db, "users", user.id));
+        
+        await updateDoc(userCollectionRef,
+            {
+                description: description,
+                dining: favDining,
+                mealPlan: mealPlan,
+                building: building,
+                paymentPref: paymentPref
+            });
+
+        toast({
+            title: "Edit Successful!",
+            status: "success",
+            isClosable: true,
+            position: "top",
+            duration: 5000,
+        })
+  
+        setDescription("");
+        setFavDining("Anywhere");
+        setMealPlan('No Meal Plan');
+        setBuilding('Not Specified');
+        setPaymentPref("Not Specified");
+    };
+  
 
     return (
         <ModalBody>
-            <FormControl>
-              <FormLabel>Description</FormLabel>
-              <Input placeholder='Description of your account here...' />
-            </FormControl>
+            <Box my={4} textAlign="left">
+            <form onSubmit={submitEditProfile}>
+                <FormControl>
+                    <FormLabel>Description</FormLabel>
+                    <Input placeholder='Description of your account here...' />
+                </FormControl>
 
-            {/* pick building */}
-            <FormControl mt={3}>
-                        <FormLabel>Building</FormLabel>
+                {/* pick building */}
+                <FormControl mt={3}>
+                    <FormLabel>Building</FormLabel>
                         <Select onChange={(e) => setBuilding(e.target.value)} value={building}>
                             <option value={"Not Specified"}>Not Specified</option>
                             <option value={"Canyon Point"}>Canyon Point</option>
@@ -60,11 +104,11 @@ function EditProfile (isOpen, onClose) {
                             <option value={"Sproul Hall"}>Sproul Hall</option>
                             <option value={"Sproul Landing"}>Sproul Landing</option>
                         </Select>
-            </FormControl>
+                </FormControl>
 
-            {/* pick favorite dining hall */}
-            <FormControl mt={3}>
-                        <FormLabel>Favorite Dining Hall</FormLabel>
+                {/* pick favorite dining hall */}
+                <FormControl mt={3}>
+                    <FormLabel>Favorite Dining Hall</FormLabel>
                         <Select onChange={(e) => setFavDining(e.target.value)} value={favDining}>
                             <option value={"Anywhere"}>Anywhere</option>
                             <option value={"Epicuria"}>Epicuria</option>
@@ -78,11 +122,11 @@ function EditProfile (isOpen, onClose) {
                             <option value={"Food Truck"}>Food Truck</option>
                             <option value={"ASUCLA"}>ASUCLA Ticket</option>
                         </Select>
-            </FormControl>
+                </FormControl>
 
-            {/* pick meal plan */}
-            <FormControl mt={3}>
-                        <FormLabel>Meal Plan</FormLabel>
+                {/* pick meal plan */}
+                <FormControl mt={3}>
+                    <FormLabel>Meal Plan</FormLabel>
                         <Select onChange={(e) => setMealPlan(e.target.value)} value={mealPlan}>
                             <option value={"No Meal Plan"}>No Meal Plan</option>
                             <option value={"11R"}>11R</option>
@@ -92,19 +136,28 @@ function EditProfile (isOpen, onClose) {
                             <option value={"19R"}>19R</option>
                             <option value={"19P"}>19P</option>
                         </Select>
-            </FormControl>
+                </FormControl>
 
-            {/* payment preference */}
-            <FormControl mt={3}>
-                <FormLabel>Payment Preference</FormLabel>
-                <RadioGroup onChange={setPaymentPref} value={PaymentPref}>
-                    <Stack direction='row'>
-                        <Radio value='Cash'>Cash</Radio>
-                        <Radio value='Zelle'>Zelle</Radio>
-                        <Radio value='Venmo'>Venmo</Radio>
-                    </Stack>
-                </RadioGroup>
-            </FormControl>
+                {/* payment preference */}
+                <FormControl mt={3}>
+                    <FormLabel>Payment Preference</FormLabel>
+                    <RadioGroup onChange={setPaymentPref} value={paymentPref}>
+                        <Stack direction='row'>
+                            <Radio value='Cash'>Cash</Radio>
+                            <Radio value='Zelle'>Zelle</Radio>
+                            <Radio value='Venmo'>Venmo</Radio>
+                        </Stack>
+                    </RadioGroup>
+                </FormControl>
+
+                <ModalFooter>
+                  <Button type="submit" colorScheme='purple' mr={3}>
+                    Save
+                  </Button>
+                  <Button onClick={onClose}>Cancel</Button>
+                </ModalFooter>
+            </form>
+            </Box>
         </ModalBody>
     );
 }
