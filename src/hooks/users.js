@@ -70,6 +70,30 @@ export function getFriends(user){
     return
 }
 
+export function useUpdateDetails(uid){
+    const [isLoading, setLoading] = useState(false);
+    const toast = useToast();
+    const navigate = useNavigate();
+
+    async function updateDetails(data) {
+      setLoading(true); 
+        const docUserRef = doc(db, "users", uid);
+        await updateDoc(docUserRef, {description: data.description, dining: data.favDining, mealPlan: data.mealPlan, building: data.building, payment: data.payment});
+    
+      toast({
+        title: "Edit Successful!",
+        status: "success",
+        isClosable: true,
+        position: "top",
+        duration: 5000,
+      });
+      navigate(0);
+      setLoading(false);
+    }
+
+    return {updateDetails, isLoading}
+}
+
 export function useUpdateAvatar(uid) {
     const [isLoading, setLoading] = useState(false);
     const [file, setFile] = useState(null);

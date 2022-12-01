@@ -104,10 +104,11 @@ export function useRegister() {
                     username: username.toLowerCase(),
                     avatar: "",
                     date: Date.now(),
-                    description: "Give a description of your account here.",
-                    building: "Which building do you live in?",
-                    dining: "Your favorite dining hall here.",
-                    meal_plan: "Your meal plan here.",
+                    description: "Not Specified",
+                    building: "Not Specified",
+                    dining: "Not Specified",
+                    meal_plan: "Not Specified",
+                    payment: "Not Specified",
                     friends: []
                 });
                 

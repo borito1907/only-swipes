@@ -142,6 +142,14 @@ export default function Profile() {
               {user.mealPlan}
               </Text>
             </Box>
+            <Box>
+              <Heading size='xs' textTransform='uppercase'>
+              Preferred payment
+              </Heading>
+              <Text pt='2' fontSize='sm'>
+              {user.payment}
+              </Text>
+            </Box>
           </Stack>
         </CardBody>
       </Card>

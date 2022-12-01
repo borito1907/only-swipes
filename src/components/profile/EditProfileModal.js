@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { useAuth } from "../../hooks/auth";
 import { auth, db } from "../../lib/firebase";
 import { collection, setDoc, doc } from "firebase/firestore";
+import { useForm } from "react-hook-form"
 
 import EditProfile from './EditProfile';
 
@@ -25,49 +26,25 @@ import {
     Select,
     Stack,
   } from "@chakra-ui/react";
+import { useUpdateDetails } from '../../hooks/users';
+import TextareaAutosize from "react-textarea-autosize"
 
 function EditProfileModal () {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const [description, setDescription] = React.useState("")
-    const [favDining, setFavDining] = React.useState('Anywhere');
-    const [mealPlan, setMealPlan] = React.useState('No Meal Plan');
-    const [building, setBuilding] = React.useState('Not Specified');
-    const [paymentPref, setPaymentPref] = React.useState('Not Specified');
+    const { register, handleSubmit, reset } = useForm();
     const toast = useToast();
-
+    
     const { user, isLoading } = useAuth();
-    if (isLoading) return "Loading..."
-
-    const submitEditProfile = async (e) => {
-
-        e.preventDefault();
-        
-        const usersCollectionRef = doc(collection(db, "users"));
-        await setDoc(usersCollectionRef,
-            {
-                description: description,
-                dining: favDining,
-                mealPlan: mealPlan,
-                building: building,
-                paymentPref: paymentPref
-            });
-
-        toast({
-            title: "Edit Successful!",
-            status: "success",
-            isClosable: true,
-            position: "top",
-            duration: 5000,
-        })
-  
-        setDescription("");
-        setFavDining("Anywhere");
-        setMealPlan('No Meal Plan');
-        setBuilding('Not Specified');
-        setPaymentPref("Not Specified");
+    const { updateDetails, isLoading : updateLoading} = useUpdateDetails(user?.id)
+    
+    function submitEditProfile(data) {
+        console.log(data)
+        console.log(user.id)
+        updateDetails(data)
     };
-
+    
+    if (isLoading) return "Loading..."
     return (
       <>
           <Button 
@@ -91,16 +68,17 @@ function EditProfileModal () {
 
                 <ModalBody>
             <Box my={4} textAlign="left">
-            <form onSubmit={submitEditProfile}>
+            <form onSubmit={handleSubmit(submitEditProfile)}>
                 <FormControl>
                     <FormLabel>Description</FormLabel>
-                    <Input placeholder='Description of your account here...' />
+                    <Input as={TextareaAutosize}             resize='none' 
+            minrows={3}  autoComplete="off" {...register("description")}  placeholder={user.description} />
                 </FormControl>
 
                 {/* pick building */}
                 <FormControl mt={3}>
                     <FormLabel>Building</FormLabel>
-                        <Select onChange={(e) => setBuilding(e.target.value)} value={building}>
+                        <Select {...register("building")} placeholder={user.building  + " (current)"}>
                             <option value={"Not Specified"}>Not Specified</option>
                             <option value={"Canyon Point"}>Canyon Point</option>
                             <option value={"Centennial Hall"}>Centennial Hall</option>
@@ -128,7 +106,8 @@ function EditProfileModal () {
                 {/* pick favorite dining hall */}
                 <FormControl mt={3}>
                     <FormLabel>Favorite Dining Hall</FormLabel>
-                        <Select onChange={(e) => setFavDining(e.target.value)} value={favDining}>
+                        <Select {...register("favDining")} placeholder={user.dining  + " (current)"}>
+                            <option value={"Not Specified"}>Not Specified</option>
                             <option value={"Anywhere"}>Anywhere</option>
                             <option value={"Epicuria"}>Epicuria</option>
                             <option value={"De Neve"}>De Neve</option>
@@ -146,7 +125,8 @@ function EditProfileModal () {
                 {/* pick meal plan */}
                 <FormControl mt={3}>
                     <FormLabel>Meal Plan</FormLabel>
-                        <Select onChange={(e) => setMealPlan(e.target.value)} value={mealPlan}>
+                        <Select {...register("mealPlan")} placeholder={user.mealPlan + " (current)"}>
+                            <option value={"Not Specified"}>Not Specified</option>
                             <option value={"No Meal Plan"}>No Meal Plan</option>
                             <option value={"11R"}>11R</option>
                             <option value={"11P"}>11P</option>
@@ -160,19 +140,18 @@ function EditProfileModal () {
                 {/* payment preference */}
                 <FormControl mt={3}>
                     <FormLabel>Payment Preference</FormLabel>
-                    <RadioGroup onChange={setPaymentPref} value={paymentPref}>
-                        <Stack direction='row'>
-                            <Radio value='Cash'>Cash</Radio>
-                            <Radio value='Zelle'>Zelle</Radio>
-                            <Radio value='Venmo'>Venmo</Radio>
-                        </Stack>
-                    </RadioGroup>
+                    <Select {...register("payment")} placeholder={user.payment  + " (current)"}>
+                            <option value={'Not Specified'}>Not Specified</option>
+                            <option value={'Cash'}>Cash</option>
+                            <option value={'Zelle'}>Zelle</option>
+                            <option value={'Venmo'}>Venmo</option>
+                    </Select>
                 </FormControl>
                   
-                <Button type="submit" colorScheme='purple' mr={3}>
+                <Button type="submit" colorScheme='purple' mt="5" mr={3}>
                   Save
                 </Button>
-                <Button onClick={onClose}>Cancel</Button>
+                <Button mt="5" onClick={onClose}>Cancel</Button>
               
             </form>
             </Box>
