@@ -15,7 +15,7 @@ import {
 
 function Feed() {
 
-    const [filter, setFilter] = useState('Buy');
+    const [filter, setFilter] = useState('All');
 
     const listingsRef = collection(db, "listings");
 
