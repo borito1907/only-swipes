@@ -10,6 +10,7 @@ import {
     ModalHeader,
     ModalOverlay,
   } from "@chakra-ui/react";
+  
   import { useUpdateAvatar } from "../../hooks/users";
   import Avatar from "./Avatar";
   import { useAuth } from "../../hooks/auth";

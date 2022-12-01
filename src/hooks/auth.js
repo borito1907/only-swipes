@@ -104,9 +104,10 @@ export function useRegister() {
                     username: username.toLowerCase(),
                     avatar: "",
                     date: Date.now(),
-                    description: "Not Specified",
-                    building: "Not Specified",
-                    dining: "Not Specified",
+                    description: "Give a description of your account here.",
+                    building: "Which building do you live in?",
+                    dining: "Your favorite dining hall here.",
+                    meal_plan: "Your meal plan here."
                 });
 
                 toast({
