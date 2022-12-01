@@ -1,23 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import ListingsView from '../components/feed-components/ListingsView.js'
-import CreateListing from '../components/feed-components/CreateListing'
+import FilterListings from "../components/feed-components/FilterListings.js";
+import { filterByQuery } from "../components/feed-components/FilterListings.js";
 
 import { db } from "../lib/firebase.js";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
-import { Heading } from '@chakra-ui/react'
+import {
+    Heading
+} from '@chakra-ui/react'
+
 
 function Feed() {
 
+    const [filter, setFilter] = useState('Buy');
+
     const listingsRef = collection(db, "listings");
-    const q = query(listingsRef)
+
+    let q = filterByQuery(filter, listingsRef);
+
     const [listings] = useCollectionData(q, { id: 'id' })
 
     return (
         <div>
             <Heading mt={4} paddingLeft="2" mb="4" size="lg" color="purple" textAling="center">Listings</Heading>
+            <FilterListings filter={filter} setFilter={setFilter} />
             <ListingsView listings={listings} />
         </div >
     );
