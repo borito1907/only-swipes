@@ -104,12 +104,13 @@ export function useRegister() {
                     username: username.toLowerCase(),
                     avatar: "",
                     date: Date.now(),
-                    friends: [],
-                    description: "Not Specified",
-                    building: "Not Specified",
-                    dinning: "Not Specified",
+                    description: "Give a description of your account here.",
+                    building: "Which building do you live in?",
+                    dining: "Your favorite dining hall here.",
+                    meal_plan: "Your meal plan here.",
+                    friends: []
                 });
-
+                
                 toast({
                     title: "Account created",
                     status:  "success",

@@ -12,6 +12,8 @@ export default function Avatar({ user, size="xl", overrideAvatar=null }) {
     to={`${PROTECTED}/profile/${user.id}`} 
     name={user.username}
     size={size} 
+    // use the overridedAvatar if it is not null since it comes first 
+    // in the or expression
     src={overrideAvatar || user.avatar}
     _hover={{cursor: "pointer", opacity: "0.8"}} />
   )

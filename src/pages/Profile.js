@@ -1,7 +1,16 @@
-function ProfilePage() {
+import React from 'react';
+import EditProfile from "../components/profile/EditProfile";
+
+
+function Profile() {
+    
+
     return (
-        <div>this your profile</div>
+        <div>
+            This is your profile.
+            <EditProfile/>
+        </div>
     );
 }
 
-export default ProfilePage;
+export default Profile;

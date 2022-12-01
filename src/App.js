@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-
 import { ChakraProvider } from "@chakra-ui/react"
 import { router } from './lib/routes';
 import { RouterProvider } from "react-router-dom"

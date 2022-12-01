@@ -122,3 +122,4 @@ export function useUpdateAvatar(uid) {
       fileURL: file && URL.createObjectURL(file),
     };
   }
+

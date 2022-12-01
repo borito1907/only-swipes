@@ -14,19 +14,20 @@ import {
   Box
 } from "@chakra-ui/react";
 import EditAvatar from "./EditAvatar";
+import EditProfile from "./EditProfileModal"
 import { useCheckFriend, useUpdateFriends, useUser } from "../../hooks/users";
 import { useParams } from "react-router-dom";
 import Avatar from "./Avatar";
 import { useAuth } from "../../hooks/auth";
 import format from "date-fns/format";
+import EditProfileModal from "./EditProfileModal";
 import Users from "../users";
 
 export default function Profile() {
   const { id } = useParams();
   const { user, isLoading: userLoading } = useUser(id);
   const { user: authUser, isLoading: authLoading } = useAuth();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { isOpen : isOpenDetails, onOpen : onOpenDetails, onClose : onCloseDetails } = useDisclosure();
+  const { isOpen: isOpenAvatar, onOpen: onOpenAvatar, onClose: onCloseAvatar } = useDisclosure();
   // const { isFriend, isLoading: isFriendLoading } = useCheckFriend(authUser?.id, user?.id);
 
   const isFriend = authUser?.friends.includes(id);
@@ -37,9 +38,11 @@ export default function Profile() {
 
   return (
     <Stack spacing="5">
-      <Flex p={["4", "6"]} pos="relative" align="center">
-        <Avatar size="2xl" user={user} />
 
+      <Flex p={["4", "6"]} pos="relative" align="center">
+        {/* displays user avatar */}
+        <Avatar size="2xl" user={user} />
+        {/* if the user is logged in and it's not loading, display this button */}
         {!authLoading && authUser.id === user.id &&  (
           <Button
             pos="absolute"
@@ -47,9 +50,9 @@ export default function Profile() {
             top="6"
             right="6"
             colorScheme="purple"
-            onClick={onOpen}
+            onClick={onOpenAvatar}
           >
-            Change avatar
+          Change Avatar
           </Button>
         )}
         {!authLoading && authUser.id != user.id && isFriend === false &&  (
@@ -64,7 +67,6 @@ export default function Profile() {
           >
             Add Friend
           </Button>
-          
         )}
           {!authLoading && authUser.id != user.id && isFriend === true && (
           <Button
@@ -78,11 +80,10 @@ export default function Profile() {
           >
             Remove Friend
           </Button>
-          
         )}
         
 
-
+        {/* displays account  */}
         <Stack ml="10">
           <Text fontSize="2xl">{user.username}</Text>
           <HStack spacing="10">
@@ -92,23 +93,16 @@ export default function Profile() {
           </HStack>
         </Stack>
 
-        <EditAvatar isOpen={isOpen} onClose={onClose} />
+        <EditAvatar isOpen={isOpenAvatar} onClose={onCloseAvatar} />
       </Flex>
+
       <Divider />
       <Card>
-      {!authLoading && authUser.id === user.id && (
-          <Button
-            pos="absolute"
-            mb="2"
-            top="4"
-            right="6"
-            colorScheme="purple"
-            onClick={onOpen}
-          >
-            Edit details
-          </Button>
-          
+        {/* button for opening a modal that lets you edit account details */}
+        {!authLoading && authUser.id === user.id && (
+          <EditProfileModal/>
         )}
+
         
         <CardHeader>
           <Heading size='md'>Account details</Heading>
@@ -134,10 +128,18 @@ export default function Profile() {
             </Box>
             <Box>
               <Heading size='xs' textTransform='uppercase'>
-                Favorite dinning hall
+              Favorite dining hall
               </Heading>
               <Text pt='2' fontSize='sm'>
-              {user.dinning}
+              {user.dining}
+              </Text>
+            </Box>
+            <Box>
+              <Heading size='xs' textTransform='uppercase'>
+              Meal plan
+              </Heading>
+              <Text pt='2' fontSize='sm'>
+              {user.mealPlan}
               </Text>
             </Box>
           </Stack>

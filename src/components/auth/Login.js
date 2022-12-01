@@ -39,11 +39,8 @@ export default function Login() {
 
     async function handleLogin(data) {
         const succeeded = await login({email: data.email, password: data.password, redirectTo: DASHBOARD});
-
-
         if(succeeded) reset();
     }
-
 
   return (
     <Center w="100%" h="100vh">

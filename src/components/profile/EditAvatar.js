@@ -10,6 +10,7 @@ import {
     ModalHeader,
     ModalOverlay,
   } from "@chakra-ui/react";
+  
   import { useUpdateAvatar } from "../../hooks/users";
   import Avatar from "./Avatar";
   import { useAuth } from "../../hooks/auth";
@@ -33,16 +34,18 @@ import {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Edit profile</ModalHeader>
+          <ModalHeader>Edit Avatar</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <HStack spacing="5">
+              {/* temporarily override the Avatar */}
               <Avatar user={user} overrideAvatar={fileURL} />
               <FormControl py="4">
-                <FormLabel htmlFor="picture">Change avatar</FormLabel>
+                <FormLabel htmlFor="picture">Change Avatar</FormLabel>
                 <input type="file" accept="image/*" onChange={handleChange} />
               </FormControl>
             </HStack>
+            {/* submit button */}
             <Button
               loadingText="Uploading"
               w="full"
