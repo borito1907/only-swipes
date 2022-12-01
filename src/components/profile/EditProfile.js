@@ -2,8 +2,9 @@ import React from 'react';
 
 import { db } from "../../lib/firebase.js";
 import { collection, doc, updateDoc } from "firebase/firestore";
-
+import { useForm } from "react-hook-form"
 import { useAuth } from '../../hooks/auth'
+import { useUpdateAvatar } from '../../hooks/users.js';
 
 
 import {
@@ -29,45 +30,33 @@ function EditProfile (isOpen, onClose) {
     const [paymentPref, setPaymentPref] = React.useState('Not Specified');
     const toast = useToast();
 
+    const { register, handleSubmit, reset } = useForm();
+
+    const {
+        setFile,
+        updateAvatar,
+        isLoading: fileLoading,
+        fileURL,
+      } = useUpdateAvatar(user?.id);
+    
+      function handleChange(e) {
+        setFile(e.target.files[0]);
+      }
+
+    
+
     const { user, isLoading } = useAuth();
     if (isLoading) return "Loading..."
 
-    const submitEditProfile = async (e) => {
-
-        e.preventDefault();
-        
-        const userCollectionRef = doc(collection(db, "users", user.id));
-
-        await updateDoc(userCollectionRef,
-            {
-                description: description,
-                dining: favDining,
-                mealPlan: mealPlan,
-                building: building,
-                paymentPref: paymentPref
-            });
-
-        toast({
-            title: "Edit Successful!",
-            status: "success",
-            isClosable: true,
-            position: "top",
-            duration: 5000,
-        })
-  
-        // reset back to original values
-        setDescription("");
-        setFavDining("Anywhere");
-        setMealPlan('No Meal Plan');
-        setBuilding('Not Specified');
-        setPaymentPref("Not Specified");
+    function submitEditProfile(data) {
+        console.log(data.building)
     };
   
 
     return (
         <ModalBody>
             <Box my={4} textAlign="left">
-            <form onSubmit={submitEditProfile}>
+            <form onSubmit={handleSubmit(submitEditProfile)}>
                 <FormControl>
                     <FormLabel>Description</FormLabel>
                     <Input placeholder='Description of your account here...' />
@@ -76,7 +65,7 @@ function EditProfile (isOpen, onClose) {
                 {/* pick building */}
                 <FormControl mt={3}>
                     <FormLabel>Building</FormLabel>
-                        <Select onChange={(e) => setBuilding(e.target.value)} value={building}>
+                        <Select onChange={(e) => setBuilding(e.target.value)} value={building} {...register("building")}>
                             <option value={"Not Specified"}>Not Specified</option>
                             <option value={"Canyon Point"}>Canyon Point</option>
                             <option value={"Centennial Hall"}>Centennial Hall</option>
