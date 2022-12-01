@@ -16,17 +16,16 @@ function CreateListingModal() {
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (
-        <>
-            <Button w="full" colorScheme='purple' onClick={onOpen}>Post A Listing</Button>
+        <div>
+            <Button w="full" colorScheme='purple' onClick={onOpen}>Post A Listing!</Button>
 
-            <Modal closeOnOverlayClick={false} isOpen={isOpen}>
+            <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
                     <CreateListing onClose={onClose} />
                 </ModalContent>
             </Modal>
-
-        </>
+        </div>
     )
 }
 
