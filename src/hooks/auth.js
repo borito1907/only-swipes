@@ -107,9 +107,10 @@ export function useRegister() {
                     description: "Give a description of your account here.",
                     building: "Which building do you live in?",
                     dining: "Your favorite dining hall here.",
-                    meal_plan: "Your meal plan here."
+                    meal_plan: "Your meal plan here.",
+                    friends: []
                 });
-
+                
                 toast({
                     title: "Account created",
                     status:  "success",

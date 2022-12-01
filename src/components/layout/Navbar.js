@@ -20,13 +20,10 @@ export default function Navbar() {
     >
       <Flex px="4" w="full" align="center" maxW="1200px">
         <Link color="purple" as={RouterLink} to={DASHBOARD} fontWeight="bold">
-          Home
+          OnlySwipes Feed
         </Link>
         <Link color="purple" ml="100px" as={RouterLink} to={CHATROOMS}>
           ChatRooms
-        </Link>
-        <Link color="purple" ml="100px" as={RouterLink} to={FEED}>
-          Feed
         </Link>
 
         <Button

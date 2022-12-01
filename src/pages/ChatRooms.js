@@ -83,35 +83,61 @@ function ChatRoomsPage() {
                 />
             </div>
 
-            <div className="rightPane"><Box mt="12" ml="1" mr="4" maxW="md" p="2" borderWidth="1px" borderRadius="lg" borderColor="purple">
+            <div className="rightPane">
 
                 {/* if chatID is zero (default), then we tell the user to select a chat
                     otherwise, display the associated messages with the current chat's id */}
-                {chatID == Number(0) ? (
-
-                    <p>Select a chat!</p>
+                {
+                    
+                    chatID == Number(0) ? (
+                    <Box mt="24" ml="1" mr="4" maxW="auto" p="8" borderWidth="1px" borderRadius="2xl" borderColor="purple">
+                        <p>Select a chat to get started!</p>
+                    </Box>
 
                 ) : (
-                    
-                    messages?.map(message => 
-                        <p>{message.sender}: {message.text}</p>
-                    )
+                        messages?.map(message => 
+                            <Box mt="2" ml="1" mr="4" maxW="md" p="2" borderWidth="1px" borderRadius="md" borderColor="purple">
+                            <p>{message.sender}: {message.text}</p></Box>
+                        )
 
-                )}
-            </Box>
-                    <input className="borderInput" id="message-buffer" type="text" placeholder="Message"
+                )
+                }
+                <Input mr="4" mt="12" ml="1" size='md' width="sm" p="5" colorScheme="purple" borderWidth="1px" borderRadius="md" borderColor="gray" disabled={chatID == 0} id="message-buffer" type="text" placeholder="Message"
+        _active={{
+            bg: '#dddfe2',
+            transform: 'scale(0.98)',
+            borderColor: "purple",
+        }}
+        _focus={{
+            borderColor: "purple",
+
+        }}
+        onChange={(event) => {
+            setMessageText(event.target.value);
+        }}
+    />
+    {/* </Box> */}
+
+    <Button ml="4" mt="4" type="submit" size="md" colorScheme="purple" loadingText="Send" disabled={chatID == 0 || document.getElementById("message-buffer").value == ""} onClick={() => {sendMessage(messageText)}}>
+        <Text color="white">Send</Text>
+    </Button>
+
+                    {/* <input disabled={chatID == 0} className="message-text" id="message-buffer" type="text" placeholder="Message"
                         onChange={(event) => {
                             setMessageText(event.target.value);
                         }}
-                    />
-
-                    <button onClick={() => {sendMessage(messageText)}}>
+                    /> */}
+{/* 
+                    <button className="form-submit-button" disabled={chatID == 0 || document.getElementById("message-buffer").value == ""} 
+                            onClick={() => {sendMessage(messageText)}}>
                         Send
-                    </button>
+                    </button> */}
+        
             </div>
             
         </div>
     );
 }
+
 
 export default ChatRoomsPage;

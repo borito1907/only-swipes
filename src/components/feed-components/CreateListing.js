@@ -21,7 +21,7 @@ import {
 } from '@chakra-ui/react'
 
 import { db } from "../../lib/firebase.js";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 
 import { useAuth } from '../../hooks/auth'
 
@@ -37,10 +37,6 @@ function CreateListing({ onClose }) {
     const { user, isLoading } = useAuth();
     if (isLoading) return "Loading..."
 
-    const listerID = user.username;
-
-    const listingsCollectionRef = collection(db, "listings");
-
     const submitListing = async (e) => {
 
         e.preventDefault();
@@ -48,15 +44,20 @@ function CreateListing({ onClose }) {
         const today = new Date();
         let timePosted = today.toLocaleTimeString('en', { hour: 'numeric', hour12: true, minute: 'numeric' });
 
-        await addDoc(listingsCollectionRef,
+        const listingsCollectionRef = doc(collection(db, "listings"));
+        await setDoc(listingsCollectionRef,
             {
-                listerID: listerID,
+                listerUsername: user.username,
                 listingType: listingType,
                 location: location,
                 mealPeriod: mealPeriod,
                 timePosted: timePosted,
-                price: price
+                price: price,
+                id: listingsCollectionRef.id,
+                avi: user.avatar
             });
+
+
 
 
         toast({
@@ -70,7 +71,7 @@ function CreateListing({ onClose }) {
         setLocation("Anywhere");
         setMealPeriod('');
         setListingType('');
-        setPrice(9.00)
+        setPrice(9.00);
     };
 
 
@@ -82,7 +83,7 @@ function CreateListing({ onClose }) {
             <Box my={4} textAlign="left">
                 <form onSubmit={submitListing}>
 
-                    <FormControl>
+                    <FormControl isRequired={true}>
                         <FormLabel>Listing Type</FormLabel>
                         <RadioGroup onChange={setListingType} value={listingType}>
                             <Stack direction='row'>
@@ -92,7 +93,7 @@ function CreateListing({ onClose }) {
                         </RadioGroup>
                     </FormControl>
 
-                    <FormControl mt={3}>
+                    <FormControl mt={3} isRequired={true}>
                         <FormLabel>Meal Period</FormLabel>
                         <RadioGroup onChange={setMealPeriod} value={mealPeriod}>
                             <Stack direction='row'>
@@ -123,7 +124,7 @@ function CreateListing({ onClose }) {
 
                     <FormControl mt={3}>
                         <FormLabel>Price</FormLabel>
-                        <NumberInput defaultValue={9} precision={2} step={1}>
+                        <NumberInput defaultValue={9.00} precision={2} step={1}>
                             <NumberInputField onChange={(e) => setPrice(e.target.value)} value={price} />
                             <NumberInputStepper>
                                 <NumberIncrementStepper />
