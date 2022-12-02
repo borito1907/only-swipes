@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useAuth } from "../../hooks/auth";
-import { auth, db } from "../../lib/firebase";
-import { collection, setDoc, doc } from "firebase/firestore";
 import { useForm } from "react-hook-form"
-
-import EditProfile from './EditProfile';
 
 import {
     Button,
@@ -17,14 +13,9 @@ import {
     ModalCloseButton,
     ModalContent,
     ModalHeader,
-    ModalFooter,
     ModalOverlay,
     useDisclosure,
-    useToast,
-    Radio,
-    RadioGroup,
     Select,
-    Stack,
   } from "@chakra-ui/react";
 import { useUpdateDetails } from '../../hooks/users';
 import TextareaAutosize from "react-textarea-autosize"
@@ -32,11 +23,10 @@ import TextareaAutosize from "react-textarea-autosize"
 function EditProfileModal () {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const { register, handleSubmit, reset } = useForm();
-    const toast = useToast();
+    const { register, handleSubmit} = useForm();
     
     const { user, isLoading } = useAuth();
-    const { updateDetails, isLoading : updateLoading} = useUpdateDetails(user?.id)
+    const { updateDetails} = useUpdateDetails(user?.id)
     
     function submitEditProfile(data) {
         console.log(data)
