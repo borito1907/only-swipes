@@ -24,5 +24,5 @@ Run the following commands in the directory you want to setup the code to get st
 
 You can now run the application using using the command `npm start`.
 
-
+Note: We don't have the presentation in this folder since we did a demo of the website and talked during the presentation.
 
