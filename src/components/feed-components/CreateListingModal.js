@@ -1,16 +1,12 @@
+import CreateListing from './CreateListing'
+
 import {
     Modal,
     ModalOverlay,
     ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
     useDisclosure,
     Button
 } from '@chakra-ui/react'
-
-import CreateListing from './CreateListing'
 
 function CreateListingModal() {
     const { isOpen, onOpen, onClose } = useDisclosure()

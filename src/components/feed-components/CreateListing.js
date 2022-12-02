@@ -1,7 +1,10 @@
-import * as React from 'react';
+import { useState } from "react";
+import { db } from "../../lib/firebase.js";
+import { collection, setDoc, doc } from "firebase/firestore";
+
+import { useAuth } from '../../hooks/auth'
 
 import {
-    Flex,
     Box,
     Heading,
     FormControl,
@@ -14,27 +17,17 @@ import {
     RadioGroup,
     Radio,
     Select,
-    NumberInput,
-    NumberInputField,
-    NumberInputStepper,
-    NumberIncrementStepper,
-    NumberDecrementStepper,
     useToast
 } from '@chakra-ui/react'
-
-import { db } from "../../lib/firebase.js";
-import { collection, setDoc, doc } from "firebase/firestore";
-
-import { useAuth } from '../../hooks/auth'
 
 function CreateListing({ onClose }) {
 
     const toast = useToast();
 
-    const [location, setLocation] = React.useState('Anywhere');
-    const [mealPeriod, setMealPeriod] = React.useState('');
-    const [listingType, setListingType] = React.useState('');
-    const [price, setPrice] = React.useState(8.00);
+    const [location, setLocation] = useState('Anywhere');
+    const [mealPeriod, setMealPeriod] = useState('');
+    const [listingType, setListingType] = useState('');
+    const [price, setPrice] = useState(8.00);
 
     const { user, isLoading } = useAuth();
     if (isLoading) return "Loading..."

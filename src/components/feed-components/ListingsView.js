@@ -1,9 +1,6 @@
-// import Container from '@mui/material/Container';
-// import Grid from '@mui/material/Grid'
 import ListingCard from './ListingCard.js'
 
-
-import { SimpleGrid, Heading } from '@chakra-ui/react'
+import { SimpleGrid } from '@chakra-ui/react'
 
 function ListingsView(props) {
 

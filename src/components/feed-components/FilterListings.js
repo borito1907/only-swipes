@@ -1,6 +1,6 @@
+import { query, where, orderBy } from "firebase/firestore";
+
 import {
-    Heading,
-    Card,
     Accordion,
     AccordionItem,
     AccordionButton,
@@ -15,8 +15,6 @@ import {
     Radio,
     Select
 } from '@chakra-ui/react'
-
-import { query, where, orderBy } from "firebase/firestore";
 
 export default function FilterListings({ filter, setFilter }) {
 

@@ -5,9 +5,7 @@ import {
     CardFooter,
     Stack,
     Heading,
-    SimpleGrid,
     Text,
-    Divider,
     Button,
     ButtonGroup,
     Flex,
@@ -15,7 +13,7 @@ import {
     Box
 } from '@chakra-ui/react'
 
-import { auth, db } from "../../lib/firebase.js";
+import { db } from "../../lib/firebase.js";
 import { collection, deleteDoc, doc, addDoc } from "firebase/firestore";
 import { useAuth } from '../../hooks/auth'
 
