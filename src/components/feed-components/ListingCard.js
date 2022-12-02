@@ -73,7 +73,7 @@ function ListingCard({ listing }) {
                 <CardFooter>
                     <ButtonGroup>
                         {listing.listerUsername !== user.username &&
-                            <Link as={RouterLink} to={CHATROOMS}>
+                            <Link as={RouterLink} to={CHATROOMS} style={{ textDecoration: 'none' }}>
                                 <Button colorScheme='blue' onClick={() => { handleCreate() }}> Contact {listing.listingType}er </Button>
                             </Link>
 
