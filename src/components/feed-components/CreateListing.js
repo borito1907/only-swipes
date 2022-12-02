@@ -128,7 +128,7 @@ function CreateListing({ onClose }) {
                     </FormControl>
 
                     <Stack direction='row' mt={4}>
-                        <Button colorScheme='blue' width="50%" type="submit">Post</Button>
+                        <Button colorScheme='purple' width="50%" type="submit">Post</Button>
                         <Button colorScheme='gray' width="50%" onClick={onClose}>Cancel</Button>
                     </Stack>
 
