@@ -10,7 +10,7 @@ function ListingsView(props) {
     const listings = props.listings;
 
     return (
-        <SimpleGrid mt={4} spacing={4} templateColumns='repeat(auto-fill, minmax(250px, 1fr))'>
+        <SimpleGrid mt={4} spacing={4} mr={6} templateColumns='repeat(auto-fill, minmax(250px, 1fr))'>
             {listings?.map((listing) => (
                 <ListingCard listing={listing} />
             ))}
