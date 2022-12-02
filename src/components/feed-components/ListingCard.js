@@ -63,7 +63,7 @@ function ListingCard({ listing }) {
 
     return (
         <div>
-            <Card>
+            <Card boxShadow='md' border="1px" borderColor="purple.200">
                 <CardHeader>
                     <Flex spacing='4'>
                         <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>

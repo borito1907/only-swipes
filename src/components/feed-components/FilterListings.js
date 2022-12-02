@@ -25,7 +25,7 @@ export default function FilterListings({ filter, setFilter }) {
     }
 
     return (
-        <Accordion allowToggle width="50%">
+        <Accordion border="0.5px" borderColor="purple.300" allowToggle width="50%">
             < AccordionItem >
                 <h2>
                     <AccordionButton>
