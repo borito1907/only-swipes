@@ -81,7 +81,7 @@ export default function Profile() {
 
         {/* displays account  */}
         <Stack ml="10">
-          <Text fontSize="2xl">{user.username}</Text>
+          <Heading fontSize="2xl">{user.username}</Heading>
           <HStack spacing="10">
             <Text color="gray.700" fontSize={["sm", "lg"]}>
               Account Created: {format(user.date, "MMMM YYY")}
@@ -101,11 +101,11 @@ export default function Profile() {
 
         
         <CardHeader>
-          <Heading size='md'>Account details</Heading>
+          <Heading color="purple" size='md'>Account Details</Heading>
         </CardHeader>
 
         <CardBody>
-          <Stack divider={<StackDivider />} spacing='4'>
+          <Stack borderColor="purple.200" divider={<StackDivider />} spacing='4'>
             <Box>
               <Heading size='xs' textTransform='uppercase'>
                 Description
