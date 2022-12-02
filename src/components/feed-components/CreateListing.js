@@ -7,6 +7,8 @@ import {
     FormControl,
     FormLabel,
     Input,
+    InputGroup,
+    InputLeftElement,
     Button,
     Stack,
     RadioGroup,
@@ -32,7 +34,7 @@ function CreateListing({ onClose }) {
     const [location, setLocation] = React.useState('Anywhere');
     const [mealPeriod, setMealPeriod] = React.useState('');
     const [listingType, setListingType] = React.useState('');
-    const [price, setPrice] = React.useState(9.00);
+    const [price, setPrice] = React.useState(8.00);
 
     const { user, isLoading } = useAuth();
     if (isLoading) return "Loading..."
@@ -68,7 +70,7 @@ function CreateListing({ onClose }) {
         setLocation("Anywhere");
         setMealPeriod('');
         setListingType('');
-        setPrice(9.00);
+        setPrice(8.00);
     };
 
 
@@ -121,13 +123,15 @@ function CreateListing({ onClose }) {
 
                     <FormControl mt={3}>
                         <FormLabel>Price</FormLabel>
-                        <NumberInput defaultValue={9.00} precision={2} step={1}>
-                            <NumberInputField onChange={(e) => setPrice(e.target.value)} value={price} />
-                            <NumberInputStepper>
-                                <NumberIncrementStepper />
-                                <NumberDecrementStepper />
-                            </NumberInputStepper>
-                        </NumberInput>
+                        <InputGroup>
+                            <InputLeftElement
+                                pointerEvents='none'
+                                color='gray.300'
+                                fontSize='1.2em'
+                                children='$'
+                            />
+                            <Input type="number" placeholder='Enter amount' onChange={(e) => setPrice(e.target.value)} value={price} />
+                        </InputGroup>
                     </FormControl>
 
                     <Stack direction='row' mt={4}>
