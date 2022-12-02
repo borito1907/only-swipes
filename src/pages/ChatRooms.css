@@ -10,11 +10,13 @@
 .leftPane {
     grid-column: 1;
     grid-row: 1;
+    width: 80%;
 }
 
 .rightPane {
     grid-column: 2;
     grid-row: 1;
+    width: 100%;
 }
 /* SPLIT SCREEN FUNCTIONALITY END */
 

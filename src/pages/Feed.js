@@ -8,9 +8,7 @@ import { db } from "../lib/firebase.js";
 import { collection } from "firebase/firestore";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
-import {
-    Heading
-} from '@chakra-ui/react'
+import { Heading } from '@chakra-ui/react'
 
 
 function Feed() {

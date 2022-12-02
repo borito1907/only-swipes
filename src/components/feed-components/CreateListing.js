@@ -1,38 +1,33 @@
-import * as React from 'react';
-
-import {
-    Flex,
-    Box,
-    Heading,
-    FormControl,
-    FormLabel,
-    Input,
-    Button,
-    Stack,
-    RadioGroup,
-    Radio,
-    Select,
-    NumberInput,
-    NumberInputField,
-    NumberInputStepper,
-    NumberIncrementStepper,
-    NumberDecrementStepper,
-    useToast
-} from '@chakra-ui/react'
-
+import { useState } from "react";
 import { db } from "../../lib/firebase.js";
 import { collection, setDoc, doc } from "firebase/firestore";
 
 import { useAuth } from '../../hooks/auth'
 
+import {
+    Box,
+    Heading,
+    FormControl,
+    FormLabel,
+    Input,
+    InputGroup,
+    InputLeftElement,
+    Button,
+    Stack,
+    RadioGroup,
+    Radio,
+    Select,
+    useToast
+} from '@chakra-ui/react'
+
 function CreateListing({ onClose }) {
 
     const toast = useToast();
 
-    const [location, setLocation] = React.useState('Anywhere');
-    const [mealPeriod, setMealPeriod] = React.useState('');
-    const [listingType, setListingType] = React.useState('');
-    const [price, setPrice] = React.useState(9.00);
+    const [location, setLocation] = useState('Anywhere');
+    const [mealPeriod, setMealPeriod] = useState('');
+    const [listingType, setListingType] = useState('');
+    const [price, setPrice] = useState(8.00);
 
     const { user, isLoading } = useAuth();
     if (isLoading) return "Loading..."
@@ -52,7 +47,7 @@ function CreateListing({ onClose }) {
                 location: location,
                 mealPeriod: mealPeriod,
                 timePosted: timePosted,
-                price: price,
+                price: parseFloat(price),
                 id: listingsCollectionRef.id,
                 avi: user.avatar
             });
@@ -68,7 +63,7 @@ function CreateListing({ onClose }) {
         setLocation("Anywhere");
         setMealPeriod('');
         setListingType('');
-        setPrice(9.00);
+        setPrice(8.00);
     };
 
 
@@ -121,17 +116,19 @@ function CreateListing({ onClose }) {
 
                     <FormControl mt={3}>
                         <FormLabel>Price</FormLabel>
-                        <NumberInput defaultValue={9.00} precision={2} step={1}>
-                            <NumberInputField onChange={(e) => setPrice(e.target.value)} value={price} />
-                            <NumberInputStepper>
-                                <NumberIncrementStepper />
-                                <NumberDecrementStepper />
-                            </NumberInputStepper>
-                        </NumberInput>
+                        <InputGroup>
+                            <InputLeftElement
+                                pointerEvents='none'
+                                color='gray.300'
+                                fontSize='1.2em'
+                                children='$'
+                            />
+                            <Input type="number" placeholder='Enter amount' onChange={(e) => setPrice(e.target.value)} value={price} />
+                        </InputGroup>
                     </FormControl>
 
                     <Stack direction='row' mt={4}>
-                        <Button colorScheme='blue' width="50%" type="submit">Post</Button>
+                        <Button colorScheme='purple' width="50%" type="submit">Post</Button>
                         <Button colorScheme='gray' width="50%" onClick={onClose}>Cancel</Button>
                     </Stack>
 

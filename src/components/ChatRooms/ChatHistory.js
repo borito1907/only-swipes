@@ -9,18 +9,20 @@ import {
 import { useAuth } from '../../hooks/auth'
 
 function ChatHistory(props) {
-    const auth = useAuth();
+    const { user, isLoading } = useAuth();
+
+    if (isLoading) return "Loading...";
 
     return (
         <div>
-        <div><Heading paddingLeft="2" mt="14" mb="4" size="2xl" color="purple" textAling="center">New Chats</Heading></div>
+        <div><Heading mt="8" paddingLeft="4" mb="8" size="md" color="#CF9FFF" textAling="center">New Chats</Heading></div>
             <ul>
-                {props.chats.filter(chat => ((chat.chatter1 === auth.user.username ||
-                                             chat.chatter2 === auth.user.username) &&
+                {props.chats.filter(chat => ((chat.chatter1 === user.username ||
+                                             chat.chatter2 === user.username) &&
                                              chat.isNewChat)).map(filteredChat => (
                     <ChatItem
-                        key={filteredChat.id}
-                        id={filteredChat.id}
+                        key={filteredChat.test}
+                        id={filteredChat.test}
                         chatter1={filteredChat.chatter1}
                         chatter2={filteredChat.chatter2}
                         date={filteredChat.date} 
@@ -29,14 +31,14 @@ function ChatHistory(props) {
                 ))}
             </ul>
 
-        <div className="ChatHistory"><Heading mt="8" paddingLeft="4" mb="8" size="md" color="#CF9FFF" textAling="center">Chat History</Heading></div>
+        <div className="ChatHistory"><Heading mt="2" paddingLeft="4" mb="8" size="md" color="#CF9FFF" textAling="center">Chat History</Heading></div>
             <ul>
-                {props.chats.filter(chat => ((chat.chatter1 === auth.user.username ||
-                                             chat.chatter2 === auth.user.username) &&
+                {props.chats.filter(chat => ((chat.chatter1 === user.username ||
+                                             chat.chatter2 === user.username) &&
                                              !chat.isNewChat)).map(filteredChat => (
                     <ChatItem
-                        key={filteredChat.id}
-                        id={filteredChat.id}
+                        key={filteredChat.test}
+                        id={filteredChat.test}
                         chatter1={filteredChat.chatter1}
                         chatter2={filteredChat.chatter2}
                         date={filteredChat.date}

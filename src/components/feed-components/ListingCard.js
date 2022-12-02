@@ -1,3 +1,6 @@
+import { CHATROOMS } from "../../lib/routes.js";
+import { HashRouter, Link as RouterLink } from "react-router-dom";
+
 import {
     Card,
     CardHeader,
@@ -5,18 +8,17 @@ import {
     CardFooter,
     Stack,
     Heading,
-    SimpleGrid,
     Text,
-    Divider,
     Button,
     ButtonGroup,
     Flex,
     Avatar,
-    Box
+    Box,
+    Link
 } from '@chakra-ui/react'
 
-import { auth, db } from "../../lib/firebase.js";
-import { collection, deleteDoc, doc, addDoc } from "firebase/firestore";
+import { db } from "../../lib/firebase.js";
+import { collection, deleteDoc, doc, addDoc, getDocs, updateDoc } from "firebase/firestore";
 import { useAuth } from '../../hooks/auth'
 
 function ListingCard({ listing }) {
@@ -37,12 +39,26 @@ function ListingCard({ listing }) {
         const year = currentDate.getFullYear();
         const withSlashes = [month, day, year].join('/');
 
-        const { id } = await addDoc(collection(db, "chats"), {
-            chatter1: user.username,
-            chatter2: listing.listerUsername,
-            isNewChat: true,
-            date: withSlashes
-        })
+        const chatsRef = collection(db, "chats");
+        const data = await getDocs(chatsRef);
+        const chats = data.docs.map((doc) =>({...doc.data(), id: doc.id}));
+        const chatDoesExist = false;
+        chats.forEach((chat) => {if ((chat.chatter1 === user.username || chat.chatter1 === listing.listerUsername) && 
+                                    (chat.chatter2 === user.username || chat.chatter2 === listing.listerUsername)) {chatDoesExist = true}});
+
+        if (!chatDoesExist) {
+            const { id } = await addDoc(collection(db, "chats"), {
+                chatter1: user.username,
+                chatter2: listing.listerUsername,
+                isNewChat: true,
+                date: withSlashes
+            })
+            const chatDoc = doc(db, "chats", id)
+            const newFields = {test: id}
+            await updateDoc(chatDoc, newFields)
+        }
+
+
     }
 
     return (
@@ -71,7 +87,10 @@ function ListingCard({ listing }) {
                 <CardFooter>
                     <ButtonGroup>
                         {listing.listerUsername !== user.username &&
-                            <Button colorScheme='blue' onClick={() => { handleCreate() }}> Contact {listing.listingType}er </Button>
+                            <Link as={RouterLink} to={CHATROOMS} style={{ textDecoration: 'none' }}>
+                                <Button colorScheme='blue' onClick={() => { handleCreate() }}> Contact {listing.listingType}er </Button>
+                            </Link>
+
                         }
                         {listing.listerUsername === user.username &&
                             <Button onClick={() => { deleteListing(listing.id) }} colorScheme='red' variant='outline'> Remove </Button>

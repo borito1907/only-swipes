@@ -1,6 +1,6 @@
+import { query, where, orderBy } from "firebase/firestore";
+
 import {
-    Heading,
-    Card,
     Accordion,
     AccordionItem,
     AccordionButton,
@@ -15,8 +15,6 @@ import {
     Radio,
     Select
 } from '@chakra-ui/react'
-
-import { query, where } from "firebase/firestore";
 
 export default function FilterListings({ filter, setFilter }) {
 
@@ -78,6 +76,16 @@ export default function FilterListings({ filter, setFilter }) {
                             </Select>
                         </FormControl>
 
+                        <FormControl mt={3}>
+                            <FormLabel>Sort By Price</FormLabel>
+                            <RadioGroup onChange={setFilter} value={filter}>
+                                <Stack direction='row'>
+                                    <Radio value='lowToHigh'>Lowest to Highest</Radio>
+                                    <Radio value='highToLow'>Highest to Lowest</Radio>
+                                </Stack>
+                            </RadioGroup>
+                        </FormControl>
+
                         <Button mt={4} type='submit' colorScheme='gray' width="full">Clear Filters</Button>
                     </ form>
                 </AccordionPanel>
@@ -122,6 +130,10 @@ export function filterByQuery(filter, listingsRef) {
             return query(listingsRef, where("location", "==", "Food Truck"));
         case 'ASUCLA':
             return query(listingsRef, where("location", "==", "ASUCLA"));
+        case 'lowToHigh':
+            return query(listingsRef, orderBy("price"));
+        case 'highToLow':
+            return query(listingsRef, orderBy("price", "desc"));
         default:
             return query(listingsRef);
     }
