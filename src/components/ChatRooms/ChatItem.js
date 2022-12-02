@@ -1,6 +1,5 @@
 import './ChatItems.css';
 import { 
-    Heading,
     Box,
     Text
  } 
@@ -9,7 +8,17 @@ import {
 function ChatItem(props) {
     return (
         <ul className="ChatWith">
-        <Box bg="#E6E6FA" mx="auto" maxW="unset" maxH="sm" p="2" borderWidth="1px" borderRadius="inherit">
+        <Box bg="#E6E6FA" ml="14" mr="10" my="0" width="sm" maxW="unset" maxH="sm" p="2" borderWidth="1px" borderRadius="md" 
+        _active={{
+            bg: '#dddfe2',
+            transform: 'scale(0.98)',
+            borderColor: "purple",
+        }}
+        _focus={{
+            borderColor: "black",
+
+        }}
+>
         <li 
         onClick={() => props.selectChat(props.id)}>
         
