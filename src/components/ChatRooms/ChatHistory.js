@@ -9,14 +9,16 @@ import {
 import { useAuth } from '../../hooks/auth'
 
 function ChatHistory(props) {
-    const auth = useAuth();
+    const { user, isLoading } = useAuth();
+
+    if (isLoading) return "Loading...";
 
     return (
         <div>
         <div><Heading mt="8" paddingLeft="4" mb="8" size="md" color="#CF9FFF" textAling="center">New Chats</Heading></div>
             <ul>
-                {props.chats.filter(chat => ((chat.chatter1 === auth.user.username ||
-                                             chat.chatter2 === auth.user.username) &&
+                {props.chats.filter(chat => ((chat.chatter1 === user.username ||
+                                             chat.chatter2 === user.username) &&
                                              chat.isNewChat)).map(filteredChat => (
                     <ChatItem
                         key={filteredChat.id}
@@ -31,8 +33,8 @@ function ChatHistory(props) {
 
         <div className="ChatHistory"><Heading mt="2" paddingLeft="4" mb="8" size="md" color="#CF9FFF" textAling="center">Chat History</Heading></div>
             <ul>
-                {props.chats.filter(chat => ((chat.chatter1 === auth.user.username ||
-                                             chat.chatter2 === auth.user.username) &&
+                {props.chats.filter(chat => ((chat.chatter1 === user.username ||
+                                             chat.chatter2 === user.username) &&
                                              !chat.isNewChat)).map(filteredChat => (
                     <ChatItem
                         key={filteredChat.id}

@@ -1,5 +1,5 @@
 import { CHATROOMS } from "../../lib/routes.js";
-import { Link as RouterLink } from "react-router-dom";
+import { HashRouter, Link as RouterLink } from "react-router-dom";
 
 import {
     Card,
@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react'
 
 import { db } from "../../lib/firebase.js";
-import { collection, deleteDoc, doc, addDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, addDoc, getDocs } from "firebase/firestore";
 import { useAuth } from '../../hooks/auth'
 
 function ListingCard({ listing }) {
@@ -39,12 +39,21 @@ function ListingCard({ listing }) {
         const year = currentDate.getFullYear();
         const withSlashes = [month, day, year].join('/');
 
-        const { id } = await addDoc(collection(db, "chats"), {
-            chatter1: user.username,
-            chatter2: listing.listerUsername,
-            isNewChat: true,
-            date: withSlashes
-        })
+        const chatsRef = collection(db, "chats");
+        const data = await getDocs(chatsRef);
+        const chats = data.docs.map((doc) =>({...doc.data(), id: doc.id}));
+        const chatDoesExist = false;
+        chats.forEach((chat) => {if ((chat.chatter1 === user.username || chat.chatter1 === listing.listerUsername) && 
+                                    (chat.chatter2 === user.username || chat.chatter2 === listing.listerUsername)) {chatDoesExist = true}});
+
+        if (!chatDoesExist) {
+            const { id } = await addDoc(collection(db, "chats"), {
+                chatter1: user.username,
+                chatter2: listing.listerUsername,
+                isNewChat: true,
+                date: withSlashes
+            })
+        }
     }
 
     return (
