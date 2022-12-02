@@ -29,23 +29,23 @@ function EditProfileModal () {
     const { updateDetails} = useUpdateDetails(user?.id)
     
     function submitEditProfile(data) {
-        if (data.description == "")
+        if (data.description === "")
         {
             data.description = user.description;
         }
-        if (data.building == "")
+        if (data.building === "")
         {
             data.building = user.building;
         }
-        if (data.dining == "")
+        if (data.favDining === "")
         {
-            data.dining = user.dining;
+            data.favDining = user.dining;
         }
-        if (data.mealPlan == "")
+        if (data.mealPlan === "")
         {
             data.mealPlan = user.mealPlan;
         }
-        if (data.payment == "")
+        if (data.payment === "")
         {
             data.payment = user.payment;
         }
@@ -175,6 +175,5 @@ function EditProfileModal () {
       </>
   )
 }
-
 
 export default EditProfileModal;
