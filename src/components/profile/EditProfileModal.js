@@ -29,6 +29,27 @@ function EditProfileModal () {
     const { updateDetails} = useUpdateDetails(user?.id)
     
     function submitEditProfile(data) {
+        if (data.description == "")
+        {
+            data.description = user.description;
+        }
+        if (data.building == "")
+        {
+            data.building = user.building;
+        }
+        if (data.dining == "")
+        {
+            data.dining = user.dining;
+        }
+        if (data.mealPlan == "")
+        {
+            data.mealPlan = user.mealPlan;
+        }
+        if (data.payment == "")
+        {
+            data.payment = user.payment;
+        }
+
         console.log(data)
         console.log(user.id)
         updateDetails(data)
@@ -59,14 +80,14 @@ function EditProfileModal () {
                 <ModalBody>
             <Box my={4} textAlign="left">
             <form onSubmit={handleSubmit(submitEditProfile)}>
-                <FormControl isRequired={true}>
+                <FormControl>
                     <FormLabel>Description</FormLabel>
-                    <Input as={TextareaAutosize}             resize='none' 
+                    <Input as={TextareaAutosize} resize='none' 
             minrows={3}  autoComplete="off" {...register("description")}  placeholder={user.description} />
                 </FormControl>
 
                 {/* pick building */}
-                <FormControl mt={3} isRequired={true}>
+                <FormControl mt={3}>
                     <FormLabel>Building</FormLabel>
                         <Select {...register("building")} placeholder={user.building  + " (current)"}>
                             <option value={"Not Specified"}>Not Specified</option>
@@ -94,7 +115,7 @@ function EditProfileModal () {
                 </FormControl>
 
                 {/* pick favorite dining hall */}
-                <FormControl mt={3} isRequired={true}>
+                <FormControl mt={3}>
                     <FormLabel>Favorite Dining Hall</FormLabel>
                         <Select {...register("favDining")} placeholder={user.dining  + " (current)"}>
                             <option value={"Not Specified"}>Not Specified</option>
@@ -113,7 +134,7 @@ function EditProfileModal () {
                 </FormControl>
 
                 {/* pick meal plan */}
-                <FormControl mt={3} isRequired={true}>
+                <FormControl mt={3}>
                     <FormLabel>Meal Plan</FormLabel>
                         <Select {...register("mealPlan")} placeholder={user.mealPlan + " (current)"}>
                             <option value={"Not Specified"}>Not Specified</option>
@@ -128,7 +149,7 @@ function EditProfileModal () {
                 </FormControl>
 
                 {/* payment preference */}
-                <FormControl mt={3} isRequired={true}>
+                <FormControl mt={3}>
                     <FormLabel>Payment Preference</FormLabel>
                     <Select {...register("payment")} placeholder={user.payment  + " (current)"}>
                             <option value={'Not Specified'}>Not Specified</option>
