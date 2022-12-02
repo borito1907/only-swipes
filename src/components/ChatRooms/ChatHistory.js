@@ -21,8 +21,8 @@ function ChatHistory(props) {
                                              chat.chatter2 === user.username) &&
                                              chat.isNewChat)).map(filteredChat => (
                     <ChatItem
-                        key={filteredChat.id}
-                        id={filteredChat.id}
+                        key={filteredChat.test}
+                        id={filteredChat.test}
                         chatter1={filteredChat.chatter1}
                         chatter2={filteredChat.chatter2}
                         date={filteredChat.date} 
@@ -37,8 +37,8 @@ function ChatHistory(props) {
                                              chat.chatter2 === user.username) &&
                                              !chat.isNewChat)).map(filteredChat => (
                     <ChatItem
-                        key={filteredChat.id}
-                        id={filteredChat.id}
+                        key={filteredChat.test}
+                        id={filteredChat.test}
                         chatter1={filteredChat.chatter1}
                         chatter2={filteredChat.chatter2}
                         date={filteredChat.date}

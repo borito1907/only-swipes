@@ -19,26 +19,22 @@ import {
 import { passwordValidate } from '../utils/form-validate';
 
 function ChatRoomsPage() {
-    const [chats, setChats] = useState([]);
+    const [chatsDisplay, setChatsDisplay] = useState([]);
     const [chatID, setChatID] = useState(Number(0));
 
+    const chatsRef = collection(db, "chats")
+    const q = query(chatsRef)
+    const [chats] = useCollectionData(q, {id: 'id'})
+
     var messagesRef = collection(db, "/chats/" + chatID + "/messages")
-    const q = query(messagesRef, orderBy("date", "asc"))
-    const [messages] = useCollectionData(q, {id: 'id'})
+    const q1 = query(messagesRef, orderBy("date", "asc"))
+    const [messages] = useCollectionData(q1, {id: 'id'})
 
     const [messageText, setMessageText] = useState("");
-    const chatsRef = collection(db, "chats");
 
     const auth = useAuth();
 
     useEffect(() => {
-
-        const getChats = async () => {
-            const data = await getDocs(chatsRef);
-            setChats(data.docs.map((doc) =>({...doc.data(), id: doc.id})));
-        }
-
-        getChats()
         setChatID(Number(0))
 
     }, [])
@@ -56,12 +52,6 @@ function ChatRoomsPage() {
         const chatDoc = doc(db, "chats", id)
         const newFields = {isNewChat: false}
         await updateDoc(chatDoc, newFields)
-
-        const getChats = async () => {
-            const data = await getDocs(chatsRef);
-            setChats(data.docs.map((doc) =>({...doc.data(), id: doc.id})));
-        }
-        getChats()
 
     }
 

@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react'
 
 import { db } from "../../lib/firebase.js";
-import { collection, deleteDoc, doc, addDoc, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, addDoc, getDocs, updateDoc } from "firebase/firestore";
 import { useAuth } from '../../hooks/auth'
 
 function ListingCard({ listing }) {
@@ -53,7 +53,12 @@ function ListingCard({ listing }) {
                 isNewChat: true,
                 date: withSlashes
             })
+            const chatDoc = doc(db, "chats", id)
+            const newFields = {test: id}
+            await updateDoc(chatDoc, newFields)
         }
+
+
     }
 
     return (
