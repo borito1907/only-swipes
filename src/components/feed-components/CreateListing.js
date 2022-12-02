@@ -47,7 +47,7 @@ function CreateListing({ onClose }) {
                 location: location,
                 mealPeriod: mealPeriod,
                 timePosted: timePosted,
-                price: price,
+                price: parseFloat(price),
                 id: listingsCollectionRef.id,
                 avi: user.avatar
             });
