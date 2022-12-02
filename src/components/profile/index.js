@@ -14,27 +14,23 @@ import {
   Box
 } from "@chakra-ui/react";
 import EditAvatar from "./EditAvatar";
-import EditProfile from "./EditProfileModal"
-import { useCheckFriend, useUpdateFriends, useUser } from "../../hooks/users";
+import { useUpdateFriends, useUser } from "../../hooks/users";
 import { useParams } from "react-router-dom";
 import Avatar from "./Avatar";
 import { useAuth } from "../../hooks/auth";
 import format from "date-fns/format";
 import EditProfileModal from "./EditProfileModal";
-import Users from "../users";
 
 export default function Profile() {
   const { id } = useParams();
   const { user, isLoading: userLoading } = useUser(id);
   const { user: authUser, isLoading: authLoading } = useAuth();
   const { isOpen: isOpenAvatar, onOpen: onOpenAvatar, onClose: onCloseAvatar } = useDisclosure();
-  // const { isFriend, isLoading: isFriendLoading } = useCheckFriend(authUser?.id, user?.id);
 
   const isFriend = authUser?.friends.includes(id);
   const { updateFriends, isLoading: updateFriendsLoading } = useUpdateFriends(authUser?.id, user?.id, isFriend);
 
   if (userLoading) return "Loading...";
-
 
   return (
     <Stack spacing="5">
@@ -55,7 +51,7 @@ export default function Profile() {
           Change Avatar
           </Button>
         )}
-        {!authLoading && authUser.id != user.id && isFriend === false &&  (
+        {!authLoading && authUser.id !== user.id && isFriend === false &&  (
           <Button
             pos="absolute"
             mb="2"
@@ -68,7 +64,7 @@ export default function Profile() {
             Add Friend
           </Button>
         )}
-          {!authLoading && authUser.id != user.id && isFriend === true && (
+          {!authLoading && authUser.id !== user.id && isFriend === true && (
           <Button
             pos="absolute"
             mb="2"

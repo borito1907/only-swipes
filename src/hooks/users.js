@@ -16,8 +16,6 @@ export function useUser(id){
     return {user, isLoading}
 }
 
-
-
 export function useUsers() {
     const [users, isLoading] = useCollectionData(collection(db, "users"));
     return { users, isLoading };
@@ -29,11 +27,6 @@ export function useFriends(uid) {
     const friends = user.friends;
     return {friends, isLoading}
   }
-
-
-
-
-
 
 export function useUpdateFriends(uid, friendID, isFriend){
     const [isLoading, setLoading] = useState(false);
@@ -78,7 +71,14 @@ export function useUpdateDetails(uid){
     async function updateDetails(data) {
       setLoading(true); 
         const docUserRef = doc(db, "users", uid);
-        await updateDoc(docUserRef, {description: data.description, dining: data.favDining, mealPlan: data.mealPlan, building: data.building, payment: data.payment});
+        await updateDoc(docUserRef, 
+          {
+            description: data.description, 
+            dining: data.favDining, 
+            mealPlan: data.mealPlan, 
+            building: data.building, 
+            payment: data.payment
+          });
     
       toast({
         title: "Edit Successful!",
