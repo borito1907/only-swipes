@@ -59,14 +59,14 @@ function EditProfileModal () {
                 <ModalBody>
             <Box my={4} textAlign="left">
             <form onSubmit={handleSubmit(submitEditProfile)}>
-                <FormControl>
+                <FormControl isRequired={true}>
                     <FormLabel>Description</FormLabel>
                     <Input as={TextareaAutosize}             resize='none' 
             minrows={3}  autoComplete="off" {...register("description")}  placeholder={user.description} />
                 </FormControl>
 
                 {/* pick building */}
-                <FormControl mt={3}>
+                <FormControl mt={3} isRequired={true}>
                     <FormLabel>Building</FormLabel>
                         <Select {...register("building")} placeholder={user.building  + " (current)"}>
                             <option value={"Not Specified"}>Not Specified</option>
@@ -94,7 +94,7 @@ function EditProfileModal () {
                 </FormControl>
 
                 {/* pick favorite dining hall */}
-                <FormControl mt={3}>
+                <FormControl mt={3} isRequired={true}>
                     <FormLabel>Favorite Dining Hall</FormLabel>
                         <Select {...register("favDining")} placeholder={user.dining  + " (current)"}>
                             <option value={"Not Specified"}>Not Specified</option>
@@ -113,7 +113,7 @@ function EditProfileModal () {
                 </FormControl>
 
                 {/* pick meal plan */}
-                <FormControl mt={3}>
+                <FormControl mt={3} isRequired={true}>
                     <FormLabel>Meal Plan</FormLabel>
                         <Select {...register("mealPlan")} placeholder={user.mealPlan + " (current)"}>
                             <option value={"Not Specified"}>Not Specified</option>
@@ -128,7 +128,7 @@ function EditProfileModal () {
                 </FormControl>
 
                 {/* payment preference */}
-                <FormControl mt={3}>
+                <FormControl mt={3} isRequired={true}>
                     <FormLabel>Payment Preference</FormLabel>
                     <Select {...register("payment")} placeholder={user.payment  + " (current)"}>
                             <option value={'Not Specified'}>Not Specified</option>
