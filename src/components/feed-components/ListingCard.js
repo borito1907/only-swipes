@@ -1,3 +1,6 @@
+import { CHATROOMS } from "../../lib/routes.js";
+import { Link as RouterLink } from "react-router-dom";
+
 import {
     Card,
     CardHeader,
@@ -10,7 +13,8 @@ import {
     ButtonGroup,
     Flex,
     Avatar,
-    Box
+    Box,
+    Link
 } from '@chakra-ui/react'
 
 import { db } from "../../lib/firebase.js";
@@ -69,7 +73,10 @@ function ListingCard({ listing }) {
                 <CardFooter>
                     <ButtonGroup>
                         {listing.listerUsername !== user.username &&
-                            <Button colorScheme='blue' onClick={() => { handleCreate() }}> Contact {listing.listingType}er </Button>
+                            <Link as={RouterLink} to={CHATROOMS}>
+                                <Button colorScheme='blue' onClick={() => { handleCreate() }}> Contact {listing.listingType}er </Button>
+                            </Link>
+
                         }
                         {listing.listerUsername === user.username &&
                             <Button onClick={() => { deleteListing(listing.id) }} colorScheme='red' variant='outline'> Remove </Button>
